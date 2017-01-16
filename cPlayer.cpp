@@ -762,8 +762,37 @@ void cPlayer::enemyIntersect(void)
 				_enemy->getVMinionPt()->at(i)->setHP(_enemy->getVMinionPt()->at(i)->getHP() - _À¯È²->getVBulletPt()->at(0).damage);
 			}
 		}
-
 	}
+
+	for (int i = 0; i < _enemy->getFrameBullet()->getVBulletPt()->size(); i++)
+	{
+		RECT temp;
+		if (IntersectRect(&temp, &_enemy->getFrameBullet()->getVBulletPt()->at(i).rc, &rc))
+		{
+			animState = DAMAGE;
+			angle = getAngle(_enemy->getFrameBullet()->getVBulletPt()->at(i).x, _enemy->getFrameBullet()->getVBulletPt()->at(i).y
+				,x, y);
+			hp--;
+			_enemy->getFrameBullet()->removeBullet(i);
+		}
+	}
+
+	for (int i = 0; i < _enemy->getHFrameBullet()->getVBulletPt()->size(); i++)
+	{
+		RECT temp;
+		if (IntersectRect(&temp, &_enemy->getHFrameBullet()->getVBulletPt()->at(i).rc, &rc))
+		{
+			if (_enemy->getHFrameBullet()->getVBulletPt()->at(i)._height < 5)
+			{
+				animState = DAMAGE;
+				angle = getAngle(_enemy->getHFrameBullet()->getVBulletPt()->at(i).x, _enemy->getHFrameBullet()->getVBulletPt()->at(i).y
+					, x, y);
+				hp--;
+				_enemy->getHFrameBullet()->removeBullet(i);
+			}
+		}
+	}
+
 }
 
 

@@ -81,13 +81,13 @@ void enemyManager::setMinion(void)
 	_vMinion.push_back(temp);*/
 
 	
-	addEnemy("ÆÄ¸®", 600, 300);
+	//addEnemy("ÆÄ¸®", 600, 300);
 
-	//addEnemy("º¸½º", 100, 400);
+	addEnemy("º¸½º", 100, 400);
 
-	addEnemy("¹ú·¹", 100, 400);
+	//addEnemy("¹ú·¹", 100, 400);
 
-	addEnemy("½´ÆÃ", 100, 400);
+	//addEnemy("½´ÆÃ", 100, 400);
 
 }
 
@@ -99,6 +99,7 @@ void enemyManager::minionBulletFire(void)
 		if ((*_viMinion)->bulletCountFire())
 		{
 			float angle = getAngle((*_viMinion)->getX(), (*_viMinion)->getY(), _player->GetX(), _player->GetY());
+
 			_bullet->fire((*_viMinion)->getX()+25, (*_viMinion)->getY(),angle,300,1,1);
 		}
 	}
@@ -118,7 +119,10 @@ void enemyManager::collision()
 		RECT temp;
 		if (IntersectRect(&temp, &(*_viMinion)->getRect(), &_player->GetRC()))//¸öÅë¹ÚÄ¡±â ´çÇÑ°æ¿ì 
 		{
-
+			_player->SetAnimState(DAMAGE);
+			float angle = getAngle((*_viMinion)->getX(), (*_viMinion)->getY(), _player->GetX(), _player->GetY());
+			_player->SetAngle(angle);
+			_player->SetHp(_player->GetHp() - 1);
 		}
 
 		RECT colTemp;

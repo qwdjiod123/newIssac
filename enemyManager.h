@@ -6,6 +6,7 @@
 #include"fly.h"
 #include"shootEnemy.h"
 #include"monstro.h"
+#include"cSceneManager.h"
 //상호참조용 플레이어 클래스 전방선언
 
 class cPlayer;
