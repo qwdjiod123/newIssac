@@ -27,7 +27,9 @@ HRESULT progressBar::init(char * frontImageKey, char * backImageKey, int x, int 
 	//체력바 이미지 초기화
 	_progressBarFront = IMAGEMANAGER->addImage(frontImageKey, frontImage, x, y, width, height, true, RGB(255, 0, 255));
 	_progressBarBack = IMAGEMANAGER->addImage(backImageKey, backImage, x, y, width, height, true, RGB(255, 0, 255));
-	
+
+	IMAGEMANAGER->addImage("숫자", "isaacNumber.bmp", x, y - 50, 140, 19, true, RGB(128, 128, 255));
+	IMAGEMANAGER->addImage("퍼센트", "per.bmp", x, y - 50, 24, 19, true, RGB(128, 128, 255));
 	return S_OK;
 }
 
@@ -47,6 +49,15 @@ void progressBar::render(void)
 	//앞에 보여지는 체력바 이미지
 	_progressBarFront->render(getMemDC(), _rcProgress.left, _y,
 		0, 0, _width, _progressBarFront->getHeight());
+
+	IMAGEMANAGER->render("숫자", getMemDC(), _rcProgress.left + 535, _y - 25, ((int)_width / 6) / 10 * 14, 0, 14, 19);
+	IMAGEMANAGER->render("숫자", getMemDC(), _rcProgress.left + 550, _y - 25, ((int)_width / 6) % 10 * 14, 0, 14, 19);
+	IMAGEMANAGER->render("퍼센트", getMemDC(), _rcProgress.left + 570, _y - 25);
+	if ((int)_width == 600)
+	{
+		IMAGEMANAGER->render("숫자", getMemDC(), _rcProgress.left + 520, _y - 25, 14, 0, 14, 19);
+		IMAGEMANAGER->render("숫자", getMemDC(), _rcProgress.left + 535, _y - 25, 0, 0, 14, 19);
+	}
 
 }
 //체력바 게이지 세팅하기

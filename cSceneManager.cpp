@@ -24,6 +24,16 @@ HRESULT cSceneManager::init(void)
 	isDoorState = 열림;
 	doorChangeFrame = 0;
 	mapChangeFrame = 0;
+	isInfo = false;
+	isFirst = false;
+	isSecond = false;
+	isThird = false;
+	isFourth = false;
+	isFifth = false;
+	isSixth = false;
+	isSeventh = false;
+	isEighth = false;
+
 	return S_OK;
 }
 
@@ -41,17 +51,32 @@ void cSceneManager::update(void)
 
 void cSceneManager::render(void)
 {
+	HFONT font;
+	HFONT o_font;
+	font = CreateFont(20, 0, 0, 0, FW_NORMAL, 0, 0, 0, ANSI_CHARSET, 0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("IMPACT"));
+	o_font = (HFONT)SelectObject(getMemDC(), font);
+	SetTextColor(getMemDC(), RGB(255, 255, 255));
+	SetBkMode(getMemDC(), TRANSPARENT);
 	IMAGEMANAGER->alphaRender("UI", getMemDC(), inGameAlpha);
 	mapChangeRender();
+	mapMiniRender();
+	hpUiRender();
+
 	//테스트
-	sprintf(buffer, TEXT("%f"), mapChangeFrame);
-	TextOut(getMemDC(), 100, 100, buffer, lstrlen(buffer));
+	sprintf(buffer, TEXT("0%d"), _player->GetMoney());
+	TextOut(getMemDC(), 360, 12, buffer, lstrlen(buffer));
+	sprintf(buffer, TEXT("0%d"), _player->GetBomb());
+	TextOut(getMemDC(), 360, 37, buffer, lstrlen(buffer));
+	sprintf(buffer, TEXT("0%d"), _player->GetKey());
+	TextOut(getMemDC(), 360, 62, buffer, lstrlen(buffer));
+
 }
 
 void cSceneManager::mapChangeUpdate(void)
 {
 	if (currentMap == 정보방)
 	{
+		isInfo = true;
 		inGameAlpha += 3;
 		if (inGameAlpha >= 255)
 		{
@@ -117,6 +142,7 @@ void cSceneManager::mapChangeUpdate(void)
 
 	if (currentMap == 첫번째방)
 	{
+		isFirst = true;
 		COLORREF colorTop = GetPixel(IMAGEMANAGER->findImage("firstMapPX")->getMemDC(), _player->GetX(), _player->GetRC().top - 90);
 		int rTop = GetRValue(colorTop);
 		int gTop = GetGValue(colorTop);
@@ -178,6 +204,7 @@ void cSceneManager::mapChangeUpdate(void)
 	//두번째방
 	if (currentMap == 두번째방)
 	{
+		isSecond = true;
 		COLORREF colorTop = GetPixel(IMAGEMANAGER->findImage("secondMapPX")->getMemDC(), _player->GetX(), _player->GetRC().top - 90);
 		int rTop = GetRValue(colorTop);
 		int gTop = GetGValue(colorTop);
@@ -224,6 +251,7 @@ void cSceneManager::mapChangeUpdate(void)
 	//세번째방
 	if (currentMap == 세번째방)
 	{
+		isThird = true;
 		COLORREF colorTop = GetPixel(IMAGEMANAGER->findImage("thirdMapPX")->getMemDC(), _player->GetX(), _player->GetRC().top - 90);
 		int rTop = GetRValue(colorTop);
 		int gTop = GetGValue(colorTop);
@@ -270,6 +298,7 @@ void cSceneManager::mapChangeUpdate(void)
 	//네번째방
 	if (currentMap == 네번째방)
 	{
+		isFourth = true;
 		COLORREF colorTop = GetPixel(IMAGEMANAGER->findImage("fourthMapPX")->getMemDC(), _player->GetX(), _player->GetRC().top - 90);
 		int rTop = GetRValue(colorTop);
 		int gTop = GetGValue(colorTop);
@@ -323,6 +352,7 @@ void cSceneManager::mapChangeUpdate(void)
 	//다섯번째방
 	if (currentMap == 다섯번째방)
 	{
+		isFifth = true;
 		COLORREF colorTop = GetPixel(IMAGEMANAGER->findImage("fifthMapPX")->getMemDC(), _player->GetX(), _player->GetRC().top - 90);
 		int rTop = GetRValue(colorTop);
 		int gTop = GetGValue(colorTop);
@@ -369,6 +399,7 @@ void cSceneManager::mapChangeUpdate(void)
 	//여섯번째방
 	if (currentMap == 여섯번째방)
 	{
+		isSixth = true;
 		COLORREF colorTop = GetPixel(IMAGEMANAGER->findImage("sixthMapPX")->getMemDC(), _player->GetX(), _player->GetRC().top - 90);
 		int rTop = GetRValue(colorTop);
 		int gTop = GetGValue(colorTop);
@@ -430,6 +461,7 @@ void cSceneManager::mapChangeUpdate(void)
 	//일곱번째방
 	if (currentMap == 일곱번째방)
 	{
+		isSeventh = true;
 		COLORREF colorTop = GetPixel(IMAGEMANAGER->findImage("seventhMapPX")->getMemDC(), _player->GetX(), _player->GetRC().top - 90);
 		int rTop = GetRValue(colorTop);
 		int gTop = GetGValue(colorTop);
@@ -475,6 +507,7 @@ void cSceneManager::mapChangeUpdate(void)
 	//여덟번째방
 	if (currentMap == 여덟번째방)
 	{
+		isEighth = true;
 		COLORREF colorTop = GetPixel(IMAGEMANAGER->findImage("eighthMapPX")->getMemDC(), _player->GetX(), _player->GetRC().top - 90);
 		int rTop = GetRValue(colorTop);
 		int gTop = GetGValue(colorTop);
@@ -531,7 +564,6 @@ void cSceneManager::mapChangeRender(void)
 			}
 			IMAGEMANAGER->render("inGameInfo", getMemDC(), 0, 90, mapChangeFrame - 800, 0, 800, 510);
 			IMAGEMANAGER->render("firstMap", getMemDC(), 0, 90, mapChangeFrame, 0, 800, 510);
-			IMAGEMANAGER->render("inGameInfoMini", getMemDC());
 			if (isPixel == true)
 			{
 				IMAGEMANAGER->render("inGameInfoPX", getMemDC(), 0, 90, mapChangeFrame - 800, 0, 800, 510);
@@ -561,17 +593,17 @@ void cSceneManager::mapChangeRender(void)
 			}
 			IMAGEMANAGER->render("inGameInfo", getMemDC(), 0, 90, mapChangeFrame, 0, 800, 510);
 			IMAGEMANAGER->render("sixthMap", getMemDC(), 0, 90, mapChangeFrame - 800, 0, 800, 510);
-			IMAGEMANAGER->render("inGameInfoMini", getMemDC());
 			if (isPixel == true)
 			{
-				IMAGEMANAGER->render("inGameInfoPX", getMemDC(), 0, 90, mapChangeFrame - 800, 0, 800, 510);
+				IMAGEMANAGER->render("inGameInfoPX", getMemDC(), 0, 90, mapChangeFrame, 0, 800, 510);
 			}
 		}
 
 		if (beforMap == 정보방)
 		{
+
 			IMAGEMANAGER->alphaRender("inGameInfo", getMemDC(), 0, 90, inGameAlpha);
-			IMAGEMANAGER->alphaRender("inGameInfoMini", getMemDC(), inGameAlpha);
+
 			if (isPixel == true)
 			{
 				IMAGEMANAGER->alphaRender("inGameInfoPX", getMemDC(), 0, 90, inGameAlpha);
@@ -591,7 +623,7 @@ void cSceneManager::mapChangeRender(void)
 			}
 			IMAGEMANAGER->render("inGameInfo", getMemDC(), 0, 90, mapChangeFrame - 800, 0, 800, 510);
 			IMAGEMANAGER->render("firstMap", getMemDC(), 0, 90, mapChangeFrame, 0, 800, 510);
-			IMAGEMANAGER->render("firstMapMini", getMemDC());
+
 			if (mapChangeFrame == 0)
 			{
 				if (time % 6 == 0)
@@ -620,7 +652,6 @@ void cSceneManager::mapChangeRender(void)
 			}
 			IMAGEMANAGER->render("secondMap", getMemDC(), 0, 90, mapChangeFrame, 0, 800, 510);
 			IMAGEMANAGER->render("firstMap", getMemDC(), 0, 90, mapChangeFrame - 800, 0, 800, 510);
-			IMAGEMANAGER->render("firstMapMini", getMemDC());
 			if (mapChangeFrame == 800)
 			{
 				if (time % 6 == 0)
@@ -650,7 +681,6 @@ void cSceneManager::mapChangeRender(void)
 			}
 			IMAGEMANAGER->render("thirdMap", getMemDC(), 0, 90, 0, mapChangeFrame - 510, 800, 510);
 			IMAGEMANAGER->render("firstMap", getMemDC(), 0, 90, 0, mapChangeFrame, 800, 510);
-			/*IMAGEMANAGER->render("firstMapMini", getMemDC());*/
 			if (mapChangeFrame == 0)
 			{
 				if (time % 6 == 0)
@@ -683,7 +713,6 @@ void cSceneManager::mapChangeRender(void)
 			}
 			IMAGEMANAGER->render("firstMap", getMemDC(), 0, 90, mapChangeFrame - 800, 0, 800, 510);
 			IMAGEMANAGER->render("secondMap", getMemDC(), 0, 90, mapChangeFrame, 0, 800, 510);
-			/*IMAGEMANAGER->render("firstMapMini", getMemDC());*/
 			if (mapChangeFrame == 0)
 			{
 				if (time % 6 == 0)
@@ -715,7 +744,7 @@ void cSceneManager::mapChangeRender(void)
 			}
 			IMAGEMANAGER->render("firstMap", getMemDC(), 0, 90, 0, mapChangeFrame, 800, 510);
 			IMAGEMANAGER->render("thirdMap", getMemDC(), 0, 90, 0, mapChangeFrame - 510, 800, 510);
-			/*IMAGEMANAGER->render("firstMapMini", getMemDC());*/
+
 			if (mapChangeFrame == 510)
 			{
 				if (time % 6 == 0)
@@ -747,7 +776,7 @@ void cSceneManager::mapChangeRender(void)
 			}
 			IMAGEMANAGER->render("inGameInfo", getMemDC(), 0, 90, 0, mapChangeFrame - 510, 800, 510);
 			IMAGEMANAGER->render("fourthMap", getMemDC(), 0, 90, 0, mapChangeFrame, 800, 510);
-			/*IMAGEMANAGER->render("firstMapMini", getMemDC());*/
+
 			if (mapChangeFrame == 0)
 			{
 				if (time % 6 == 0)
@@ -808,7 +837,6 @@ void cSceneManager::mapChangeRender(void)
 			}
 			IMAGEMANAGER->render("fourthMap", getMemDC(), 0, 90, 0, mapChangeFrame - 510, 800, 510);
 			IMAGEMANAGER->render("fifthMap", getMemDC(), 0, 90, 0, mapChangeFrame, 800, 510);
-			/*IMAGEMANAGER->render("firstMapMini", getMemDC());*/
 			if (mapChangeFrame == 0)
 			{
 				if (time % 6 == 0)
@@ -840,7 +868,6 @@ void cSceneManager::mapChangeRender(void)
 			}
 			IMAGEMANAGER->render("inGameInfo", getMemDC(), 0, 90, mapChangeFrame, 0, 800, 510);
 			IMAGEMANAGER->render("sixthMap", getMemDC(), 0, 90, mapChangeFrame - 800, 0, 800, 510);
-			IMAGEMANAGER->render("sixthMapMini", getMemDC());
 			if (mapChangeFrame == 800)
 			{
 				if (time % 6 == 0)
@@ -870,7 +897,6 @@ void cSceneManager::mapChangeRender(void)
 			}
 			IMAGEMANAGER->render("seventhMap", getMemDC(), 0, 90, mapChangeFrame - 800, 0, 800, 510);
 			IMAGEMANAGER->render("sixthMap", getMemDC(), 0, 90, mapChangeFrame, 0, 800, 510);
-			/*IMAGEMANAGER->render("firstMapMini", getMemDC());*/
 			if (mapChangeFrame == 0)
 			{
 				if (time % 6 == 0)
@@ -900,7 +926,6 @@ void cSceneManager::mapChangeRender(void)
 			}
 			IMAGEMANAGER->render("eighthMap", getMemDC(), 0, 90, 0, mapChangeFrame - 510, 800, 510);
 			IMAGEMANAGER->render("sixthMap", getMemDC(), 0, 90, 0, mapChangeFrame, 800, 510);
-			/*IMAGEMANAGER->render("firstMapMini", getMemDC());*/
 			if (mapChangeFrame == 0)
 			{
 				if (time % 6 == 0)
@@ -965,7 +990,6 @@ void cSceneManager::mapChangeRender(void)
 			}
 			IMAGEMANAGER->render("sixthMap", getMemDC(), 0, 90, 0, mapChangeFrame, 800, 510);
 			IMAGEMANAGER->render("eighthMap", getMemDC(), 0, 90, 0, mapChangeFrame - 510, 800, 510);
-			/*IMAGEMANAGER->render("firstMapMini", getMemDC());*/
 			if (mapChangeFrame == 510)
 			{
 				if (time % 6 == 0)
@@ -983,5 +1007,231 @@ void cSceneManager::mapChangeRender(void)
 				IMAGEMANAGER->render("eighthMapPX", getMemDC(), 0, 90, 0, mapChangeFrame - 510, 800, 510);
 			}
 		}
+	}
+}
+
+void cSceneManager::mapMiniRender(void)
+{
+	if (isInfo == true)
+	{
+		IMAGEMANAGER->render("grayMini", getMemDC(), 130, 50);
+	}
+	if (isFirst == false)
+	{
+		IMAGEMANAGER->render("blackMini", getMemDC(), 99, 50);
+	}
+	else
+	{
+		IMAGEMANAGER->render("grayMini", getMemDC(), 99, 50);
+	}
+	if (isFirst == true)
+	{
+		if (isSecond == false)
+		{
+			IMAGEMANAGER->render("blackMini", getMemDC(), 68, 50);
+		}
+		else
+		{
+			IMAGEMANAGER->render("grayMini", getMemDC(), 68, 50);
+		}
+		if (isThird == false)
+		{
+			IMAGEMANAGER->render("blackMini", getMemDC(), 99, 63);
+		}
+		else
+		{
+			IMAGEMANAGER->render("grayMini", getMemDC(), 99, 63);
+		}
+		IMAGEMANAGER->render("kingMini", getMemDC(), 73, 45);
+		IMAGEMANAGER->render("scMini", getMemDC(), 106, 58);
+	}
+	if (isFourth == false)
+	{
+		IMAGEMANAGER->render("blackMini", getMemDC(), 130, 37);
+	}
+	else
+	{
+		IMAGEMANAGER->render("grayMini", getMemDC(), 130, 37);
+	}
+	if (isFourth == true)
+	{
+		if (isFifth == false)
+		{
+			IMAGEMANAGER->render("blackMini", getMemDC(), 130, 24);
+		}
+		else
+		{
+			IMAGEMANAGER->render("grayMini", getMemDC(), 130, 24);
+		}
+	}
+	if (isSixth == false)
+	{
+		IMAGEMANAGER->render("blackMini", getMemDC(), 161, 50);
+	}
+	else
+	{
+		IMAGEMANAGER->render("grayMini", getMemDC(), 161, 50);
+	}
+	if (isSixth == true)
+	{
+		if (isSeventh == false)
+		{
+			IMAGEMANAGER->render("blackMini", getMemDC(), 192, 50);
+		}
+		else
+		{
+			IMAGEMANAGER->render("grayMini", getMemDC(), 192, 50);
+		}
+		if (isEighth == false)
+		{
+			IMAGEMANAGER->render("blackMini", getMemDC(), 161, 63);
+		}
+		else
+		{
+			IMAGEMANAGER->render("grayMini", getMemDC(), 161, 63);
+		}
+	}
+	if (currentMap == 정보방)
+	{
+		IMAGEMANAGER->render("whiteMini", getMemDC(), 130, 50);
+	}
+	if (currentMap == 첫번째방)
+	{
+		IMAGEMANAGER->render("whiteMini", getMemDC(), 99, 50);
+	}
+	if (currentMap == 두번째방)
+	{
+		IMAGEMANAGER->render("whiteMini", getMemDC(), 68, 50);
+	}
+	if (currentMap == 세번째방)
+	{
+		IMAGEMANAGER->render("whiteMini", getMemDC(), 99, 63);
+	}
+	if (currentMap == 네번째방)
+	{
+		IMAGEMANAGER->render("whiteMini", getMemDC(), 130, 37);
+	}
+	if (currentMap == 다섯번째방)
+	{
+		IMAGEMANAGER->render("whiteMini", getMemDC(), 130, 24);
+	}
+	if (currentMap == 여섯번째방)
+	{
+		IMAGEMANAGER->render("whiteMini", getMemDC(), 161, 50);
+	}
+	if (currentMap == 일곱번째방)
+	{
+		IMAGEMANAGER->render("whiteMini", getMemDC(), 192, 50);
+	}
+	if (currentMap == 여덟번째방)
+	{
+		IMAGEMANAGER->render("whiteMini", getMemDC(), 161, 63);
+	}
+
+	if (isFirst == true)
+	{
+		IMAGEMANAGER->render("kingMini", getMemDC(), 73, 45);
+		IMAGEMANAGER->render("scMini", getMemDC(), 106, 60);
+	}
+	if (isFourth == true)
+	{
+		IMAGEMANAGER->render("itemMini", getMemDC(), 136, 21);
+	}
+}
+
+void cSceneManager::hpUiRender(void)
+{
+	if (_player->GetHp() == 8)
+	{
+		IMAGEMANAGER->alphaRender("fullHeart", getMemDC(), 580, 30, inGameAlpha);
+		IMAGEMANAGER->alphaRender("fullHeart", getMemDC(), 615, 30, inGameAlpha);
+		IMAGEMANAGER->alphaRender("fullHeart", getMemDC(), 650, 30, inGameAlpha);
+		IMAGEMANAGER->alphaRender("fullHeart", getMemDC(), 685, 30, inGameAlpha);
+	}
+	if (_player->GetHp() == 7)
+	{
+		IMAGEMANAGER->alphaRender("fullHeart", getMemDC(), 580, 30, inGameAlpha);
+		IMAGEMANAGER->alphaRender("fullHeart", getMemDC(), 615, 30, inGameAlpha);
+		IMAGEMANAGER->alphaRender("fullHeart", getMemDC(), 650, 30, inGameAlpha);
+		IMAGEMANAGER->alphaRender("halfHeart", getMemDC(), 685, 30, inGameAlpha);
+	}
+	if (_player->GetHp() == 6)
+	{
+		IMAGEMANAGER->alphaRender("fullHeart", getMemDC(), 580, 30, inGameAlpha);
+		IMAGEMANAGER->alphaRender("fullHeart", getMemDC(), 615, 30, inGameAlpha);
+		IMAGEMANAGER->alphaRender("fullHeart", getMemDC(), 650, 30, inGameAlpha);
+		if (_player->GetmaxHp() == 8)
+		{
+			IMAGEMANAGER->alphaRender("emptyHeart", getMemDC(), 685, 30, inGameAlpha);
+		}
+	}
+	if (_player->GetHp() == 5)
+	{
+		IMAGEMANAGER->alphaRender("fullHeart", getMemDC(), 580, 30, inGameAlpha);
+		IMAGEMANAGER->alphaRender("fullHeart", getMemDC(), 615, 30, inGameAlpha);
+		IMAGEMANAGER->alphaRender("halfHeart", getMemDC(), 650, 30, inGameAlpha);
+		if (_player->GetmaxHp() == 8)
+		{
+			IMAGEMANAGER->alphaRender("emptyHeart", getMemDC(), 685, 30, inGameAlpha);
+		}
+	}
+	if (_player->GetHp() == 4)
+	{
+		IMAGEMANAGER->alphaRender("fullHeart", getMemDC(), 580, 30, inGameAlpha);
+		IMAGEMANAGER->alphaRender("fullHeart", getMemDC(), 615, 30, inGameAlpha);
+		IMAGEMANAGER->alphaRender("emptyHeart", getMemDC(), 650, 30, inGameAlpha);
+		if (_player->GetmaxHp() == 8)
+		{
+			IMAGEMANAGER->alphaRender("emptyHeart", getMemDC(), 685, 30, inGameAlpha);
+		}
+	}
+	if (_player->GetHp() == 3)
+	{
+		IMAGEMANAGER->alphaRender("fullHeart", getMemDC(), 580, 30, inGameAlpha);
+		IMAGEMANAGER->alphaRender("halfHeart", getMemDC(), 615, 30, inGameAlpha);
+		IMAGEMANAGER->alphaRender("emptyHeart", getMemDC(), 650, 30, inGameAlpha);
+		if (_player->GetmaxHp() == 8)
+		{
+			IMAGEMANAGER->alphaRender("emptyHeart", getMemDC(), 685, 30, inGameAlpha);
+		}
+	}
+	if (_player->GetHp() == 2)
+	{
+		IMAGEMANAGER->alphaRender("fullHeart", getMemDC(), 580, 30, inGameAlpha);
+		IMAGEMANAGER->alphaRender("emptyHeart", getMemDC(), 615, 30, inGameAlpha);
+		IMAGEMANAGER->alphaRender("emptyHeart", getMemDC(), 650, 30, inGameAlpha);
+		if (_player->GetmaxHp() == 8)
+		{
+			IMAGEMANAGER->alphaRender("emptyHeart", getMemDC(), 685, 30, inGameAlpha);
+		}
+	}
+	if (_player->GetHp() == 1)
+	{
+		IMAGEMANAGER->alphaRender("halfHeart", getMemDC(), 580, 30, inGameAlpha);
+		IMAGEMANAGER->alphaRender("emptyHeart", getMemDC(), 615, 30, inGameAlpha);
+		IMAGEMANAGER->alphaRender("emptyHeart", getMemDC(), 650, 30, inGameAlpha);
+		if (_player->GetmaxHp() == 8)
+		{
+			IMAGEMANAGER->alphaRender("emptyHeart", getMemDC(), 685, 30, inGameAlpha);
+		}
+	}
+	if (_player->GetHp() == 0)
+	{
+		IMAGEMANAGER->alphaRender("emptyHeart", getMemDC(), 580, 30, inGameAlpha);
+		IMAGEMANAGER->alphaRender("emptyHeart", getMemDC(), 615, 30, inGameAlpha);
+		IMAGEMANAGER->alphaRender("emptyHeart", getMemDC(), 650, 30, inGameAlpha);
+		if (_player->GetmaxHp() == 8)
+		{
+			IMAGEMANAGER->alphaRender("emptyHeart", getMemDC(), 685, 30, inGameAlpha);
+		}
+	}
+
+	if (_player->GetSpace() == 박사의조정기)
+	{
+		IMAGEMANAGER->alphaRender("remocon", getMemDC(), 493, 30, inGameAlpha);
+	}
+	if (_player->GetSpace() == 모래시계)
+	{
+		IMAGEMANAGER->alphaRender("sandclock", getMemDC(), 493, 30, inGameAlpha);
 	}
 }

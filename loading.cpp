@@ -91,13 +91,13 @@ HRESULT loadItem::init(string keyName, const char * fileName, float x, float y, 
 HRESULT loading::init(void)
 {
 	//로딩화면 백그라운드 이미지 초기화
-	_background = IMAGEMANAGER->addImage("bgLoadingScene", "background.bmp", WINSIZEX, WINSIZEY);
-	_test2 = IMAGEMANAGER->addImage("광선", "test2.bmp", 70, 80, true, RGB(255, 0, 255));
-	_test3 = IMAGEMANAGER->addImage("캐릭터", "test3.bmp", 100, 100, true, RGB(255, 0, 255));
+	_background = IMAGEMANAGER->addImage("bgLoadingScene", "background.bmp", WINSIZEX, 500);
+	//_test2 = IMAGEMANAGER->addImage("광선", "test2.bmp", 70, 80, true, RGB(255, 0, 255));
+	_test3 = IMAGEMANAGER->addImage("캐릭터", "test3.bmp", 30, 34, true, RGB(255, 0, 255));
 	//로딩바 초기화
 	_loadingBar = new progressBar;
-	_loadingBar->init("test", "loadingBarBack", 100, 430, 600, 20);
-	
+	_loadingBar->init("test", "loadingBarBack", 100, 500, 600, 20);
+
 	_loadingBar->setGauge(0, 0);
 	//현재 게이지 초기화
 	_currentGauge = 0;
@@ -115,34 +115,40 @@ void loading::update(void)
 {
 	//로딩바 업데이트
 	_loadingBar->update();
-	_test2->setX(_loadingBar->_progressBarBack->getX()+_loadingBar->_width-25);
-	_test2->setY(_loadingBar->_progressBarBack->getY()-33);	
+	//_test2->setX(_loadingBar->_progressBarBack->getX()+_loadingBar->_width-25);
+	//_test2->setY(_loadingBar->_progressBarBack->getY()-33);	
 }
 
 void loading::render(void)
 {
+	HFONT font;
+	HFONT o_font;
+	font = CreateFont(20, 0, 0, 0, FW_NORMAL, 0, 0, 0, ANSI_CHARSET, 0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("IMPACT"));
+	o_font = (HFONT)SelectObject(getMemDC(), font);
+	SetTextColor(getMemDC(), RGB(255, 255, 255));
+	SetBkMode(getMemDC(), TRANSPARENT);
 	//백그라운드 렌더
 	_background->render(getMemDC());
 
-	
+
 
 	//로딩바 렌더
 	_loadingBar->render();
-	_test3->render(getMemDC(), 20, WINSIZEY - 105);
+	_test3->render(getMemDC(), 90, WINSIZEY - 105);
 
-	_test2->render(getMemDC(), _test2->getX(), _test2->getY());
+	//_test2->render(getMemDC(), _test2->getX(), _test2->getY());
 
 
 	SetBkMode(getMemDC(), TRANSPARENT);
 	SetTextColor(getMemDC(), RGB(255, 255, 255));
-	TextOut(getMemDC(), _loadingBar->getRect().left + 100, _loadingBar->getRect().top+40, path, lstrlen(path));
-	TextOut(getMemDC(), _test2->getX()+30, _test2->getY()+35, perCent, lstrlen(perCent));
+	TextOut(getMemDC(), _loadingBar->getRect().left + 100, _loadingBar->getRect().top + 40, path, lstrlen(path));
+	/*TextOut(getMemDC(), _test2->getX()+30, _test2->getY()+35, perCent, lstrlen(perCent));*/
 
 
 	if (loadingDone() == true)
-	{		
-		wsprintf(enter, TEXT("%s"), "엔터키를 누르세요!");
-		TextOut(getMemDC(), 350, 433, enter, lstrlen(enter));
+	{
+		wsprintf(enter, TEXT("%s"), "PRESS ENTER TO START!");
+		TextOut(getMemDC(), 350, 498, enter, lstrlen(enter));
 	}
 
 }
@@ -200,7 +206,7 @@ BOOL loading::loadingDone(void)
 		IMAGEMANAGER->addImage(img.keyName, img.width, img.height);
 	}
 	break;
-	
+
 	case LOAD_KIND_IMAGE_1:
 	{
 		tagImageResource img = item->getImageResource();
@@ -237,7 +243,7 @@ BOOL loading::loadingDone(void)
 	sprintf(buffer, "\\%s.bmp", _vLoadItem[_currentGauge]->getImageResource().keyName.c_str());
 	//sprintf(buffer, "\\%s.bmp", _vLoadItem[_currentGauge]->getImageResource().fileName);
 	strcat(path, buffer);
-	wsprintf(perCent, TEXT("%d%c"), (_currentGauge-2) / 5,'%');
+	wsprintf(perCent, TEXT("%d%c"), (_currentGauge - 2) / 5, '%');
 
 
 

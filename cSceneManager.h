@@ -59,6 +59,15 @@ private:
 	int mapChangeFrame;
 	int doorChangeFrame;
 	int time;
+	bool isInfo;
+	bool isFirst;
+	bool isSecond;
+	bool isThird;
+	bool isFourth;
+	bool isFifth;
+	bool isSixth;
+	bool isSeventh;
+	bool isEighth;
 
 public:
 
@@ -74,8 +83,12 @@ public:
 	void update(void);
 	void render(void);
 
+	int GetdoorChangeFrame() { return doorChangeFrame; }
+
 	void mapChangeUpdate(void);
 	void mapChangeRender(void);
+	void mapMiniRender(void);
+	void hpUiRender(void);
 	bool GetIsMapChange() { return isMapChange; }
 	void SetIsMapChange(bool _isMapChange) { isMapChange = _isMapChange; }
 

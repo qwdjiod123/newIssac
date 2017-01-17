@@ -234,11 +234,25 @@ void loadingScene::loadingImage(void)
 	_loading->loadImage("firstMapMini", "firstMapMini.bmp", 300, 80);
 	_loading->loadImage("sixthMapMini", "sixthMapMini.bmp", 300, 80);
 
+	_loading->loadImage("blackMini", "blackMini.bmp", 33, 14);
+	_loading->loadImage("whiteMini", "whiteMini.bmp", 33, 14);
+	_loading->loadImage("grayMini", "grayMini.bmp", 33, 14);
+	_loading->loadImage("scMini", "scMini.bmp", 17, 15, true, RGB(128, 128, 255));
+	_loading->loadImage("kingMini", "kingMini.bmp", 22, 18, true, RGB(128, 128, 255));
+	_loading->loadImage("itemMini", "itemMini.bmp", 19, 21, true, RGB(128, 128, 255));
+
+	_loading->loadImage("emptyHeart", "emptyHeart.bmp", 32, 26);
+	_loading->loadImage("fullHeart", "fullHeart.bmp", 31, 25);
+	_loading->loadImage("halfHeart", "halfHeart.bmp", 33, 26);
+
 	_loading->loadImage("mainGame", "mainGame.bmp", 800, 600);
 	_loading->loadImage("mother", "mother.bmp", 1600, 320, true, RGB(128, 128, 255));
-	_loading->loadImage("flyIntro", "flyIntro.bmp", 260, 130, true, RGB(128, 128, 255));
+	_loading->loadImage("fly", "fly.bmp", 260, 130, true, RGB(128, 128, 255));
 	_loading->loadImage("start", "start.bmp", 163, 64, true, RGB(128, 128, 255));
 	_loading->loadImage("select", "select.bmp", 150, 150, true, RGB(128, 128, 255));
+
+	_loading->loadImage("sandclock", "sandclock.bmp", 40, 40, true, RGB(255, 0, 255));
+	_loading->loadImage("remocon", "remocon.bmp", 40, 40, true, RGB(255, 0, 255));
 
 	_loading->loadImage("doorTop", "doorTop.bmp", 170, 400, true, RGB(128, 128, 255));
 	_loading->loadImage("doorBottom", "doorBottom.bmp", 170, 400, true, RGB(128, 128, 255));
