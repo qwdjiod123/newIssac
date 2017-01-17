@@ -149,6 +149,7 @@
     <ClInclude Include="cPlayer.h" />
     <ClInclude Include="cSceneGame.h" />
     <ClInclude Include="cSceneManager.h" />
+    <ClInclude Include="cSound.h" />
     <ClInclude Include="effectManager.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="enemyManager.h" />
@@ -184,6 +185,7 @@
     <ClCompile Include="cPlayer.cpp" />
     <ClCompile Include="cSceneGame.cpp" />
     <ClCompile Include="cSceneManager.cpp" />
+    <ClCompile Include="cSound.cpp" />
     <ClCompile Include="effectManager.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="enemyManager.cpp" />

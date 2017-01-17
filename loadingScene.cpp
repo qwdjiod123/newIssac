@@ -77,6 +77,7 @@ void loadingScene::loadingImage(void)
 	_loading->loadImage("상점캐릭터", "w_shop.bmp", 50, 100, true, RGB(255, 0, 255));
 	_loading->loadImage("상점2", "w_shop2.bmp", 40, 40, true, RGB(255, 0, 255));
 	_loading->loadImage("상점3", "w_shop3.bmp", 40, 40, true, RGB(255, 0, 255));
+	_loading->loadImage("벽돌", "w_rock2.bmp", 50, 50, true, RGB(255, 0, 255));
 	
 
 	//백그라운드 이미지

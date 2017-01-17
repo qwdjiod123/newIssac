@@ -8,7 +8,10 @@ HRESULT cSceneGame::init(void)
 	_sm = new cSceneManager();
 	_im = new cItemManager();
 	_enemy = new enemyManager;
+	_sound = new cSound();
 
+
+	_sound->SetSM(_sm);
 	_player->SetIM(_im);
 	_player->SetEM(_enemy);
 	_sm->SetPlayer(_player);	
@@ -17,6 +20,7 @@ HRESULT cSceneGame::init(void)
 	_im->SetPlayer(_player);
 	_im->SetEnemy(_enemy);
 
+	_sound->init();
 	_player->init();	
 	_sm->init();
 	_im->init();
@@ -35,6 +39,7 @@ void cSceneGame::release(void)
 	_im->release();
 	_sm->release();
 	_enemy->release();
+	_sound->release();
 }
 
 void cSceneGame::update(void)
@@ -43,11 +48,13 @@ void cSceneGame::update(void)
 	_im->update();
 	_sm->update();
 	_enemy->update();
+	_sound->update();
 	EFFECTMANAGER->update();
 }
 
 void cSceneGame::render(void)
 {		
+	_sound->render();
 	_sm->render();	
 	_im->render();
 	_enemy->render();

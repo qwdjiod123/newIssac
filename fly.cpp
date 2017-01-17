@@ -48,7 +48,7 @@ void fly::move()
 	if (_isMove)
 	{
 		_angle = getAngle(_x, _y, _player->GetX(), _player->GetY());
-		_moveSpeed = 1.5;
+		
 	}
 
 	_x += cosf(_angle)*_moveSpeed;
@@ -69,6 +69,7 @@ void fly::move()
 
 	if (getDistance(_x, _y, _player->GetX(), _player->GetY())<200)
 	{
+		_moveSpeed = 1.5;
 		_isMove = true;
 	}
 	_rc = RectMakeCenter(_x, _y, _img->getFrameWidth(), _img->getFrameHeight());

@@ -72,6 +72,9 @@
     <Filter Include="MainGame\아이작\맵매니져">
       <UniqueIdentifier>{c4a95d8e-294b-49c5-b52a-2fe7e33a67d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\아이작\사운드">
+      <UniqueIdentifier>{6aa3dec1-99ed-4683-ba38-fa895a60ff7a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainGame.h">
@@ -176,6 +179,9 @@
     <ClInclude Include="effectManager.h">
       <Filter>GameFramework2D\매니져</Filter>
     </ClInclude>
+    <ClInclude Include="cSound.h">
+      <Filter>MainGame\아이작\사운드</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainGame.cpp">
@@ -273,6 +279,9 @@
     </ClCompile>
     <ClCompile Include="effectManager.cpp">
       <Filter>GameFramework2D\매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="cSound.cpp">
+      <Filter>MainGame\아이작\사운드</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

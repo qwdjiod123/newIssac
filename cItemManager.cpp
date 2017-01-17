@@ -85,7 +85,7 @@ void cItemManager::update(void)
 		{
 			for (int p = 0; p < _enemy->getVMinion().size(); p++)
 			{
-				_enemy->getVMinion()[p]->setSpeed(0);
+				_enemy->getVMinionPt()->at(p)->setSpeed(0);       
 			}
 		}
 		if (nCount>100)
@@ -110,31 +110,33 @@ void cItemManager::render(void)
 
 
 
+	if (_sm->GetdoorChangeFrame()==300)
+	{
+		ItemRender(정보방);
+		ItemRender(첫번째방);
+		ItemRender(두번째방);
+		ItemRender(네번째방);
+		ItemRender(다섯번째방);
+		ItemRender(여섯번째방);
+		ItemRender(일곱번째방);
 
-	ItemRender(정보방);
-	ItemRender(첫번째방);
-	ItemRender(두번째방);
-	ItemRender(네번째방);
-	ItemRender(다섯번째방);
-	ItemRender(여섯번째방);
-	ItemRender(일곱번째방);
-
-	NewItemRender(정보방);
-	NewItemRender(첫번째방);
-	NewItemRender(두번째방);
-	NewItemRender(네번째방);
-	NewItemRender(다섯번째방);
-	NewItemRender(여섯번째방);
-	NewItemRender(일곱번째방);
-
+		NewItemRender(정보방);
+		NewItemRender(첫번째방);
+		NewItemRender(두번째방);
+		NewItemRender(네번째방);
+		NewItemRender(다섯번째방);
+		NewItemRender(여섯번째방);
+		NewItemRender(일곱번째방);
+	}
+	
 
 	StoreRener();
 
 	MissileRender();
 
 	//테스트입니다.
-	wsprintf(buffer, TEXT("HP:%d"), _player->GetHp());
-	TextOut(getMemDC(), 200, 200, buffer, lstrlen(buffer));
+	/*wsprintf(buffer, TEXT("HP:%d"), _player->GetHp());
+	TextOut(getMemDC(), 200, 200, buffer, lstrlen(buffer));*/
 	//RectangleMake(getMemDC(), mapRC.rc);
 
 }
@@ -160,7 +162,24 @@ void cItemManager::ItemSetting()
 
 		ItemSetOnce[정보방] = true;
 	}
+	if (_sm->GetCurrentMap() == 첫번째방&&ItemSetOnce[첫번째방] == false)
+	{
+		ItemMapSet(100, 450, 벽돌, 첫번째방);
+		ItemMapSet(150, 450, 벽돌, 첫번째방);
+		ItemMapSet(200, 450, 벽돌, 첫번째방);
+		ItemMapSet(250, 450, 벽돌, 첫번째방);
+		ItemMapSet(300, 450, 벽돌, 첫번째방);
+		ItemMapSet(350, 450, 벽돌, 첫번째방);
+		ItemMapSet(400, 450, 벽돌, 첫번째방);
+		ItemMapSet(450, 450, 벽돌, 첫번째방);
+		ItemMapSet(500, 450, 벽돌, 첫번째방);
+		ItemMapSet(550, 450, 벽돌, 첫번째방);
+		ItemMapSet(600, 450, 벽돌, 첫번째방);
+		ItemMapSet(650, 450, 벽돌, 첫번째방);
+		ItemMapSet(700, 450, 벽돌, 첫번째방);
 
+		ItemSetOnce[첫번째방] = true;
+	}
 	if (_sm->GetCurrentMap() == 두번째방&&ItemSetOnce[두번째방] == false)
 	{
 		StoreSetting(두번째방);
@@ -284,6 +303,10 @@ void cItemManager::ItemMapSet(float _x, float _y, int _state, int _currentmap)
 	if (_state == 상점3)
 	{
 		item.RectSize = 40;
+	}
+	if (_state == 벽돌)
+	{
+		item.RectSize = 50;
 	}
 
 	item.rc = RectMakeCenter(item.x, item.y, item.RectSize, item.RectSize);
@@ -912,8 +935,10 @@ void cItemManager::ItemRender(int _currentmap)
 				{
 					IMAGEMANAGER->render("상점3", getMemDC(), vItem[i].rc.left, vItem[i].rc.top, 0, 0, 40, 40);
 				}
-
-
+				if (vItem[i].state == 벽돌)
+				{
+					IMAGEMANAGER->render("벽돌", getMemDC(), vItem[i].rc.left, vItem[i].rc.top, 0, 0, 50, 50);
+				}
 				//RectangleMake(getMemDC(), vItem[i].rc);
 			}
 		}
@@ -1039,12 +1064,12 @@ void cItemManager::Collision()
 			for (int p = 0; p < _enemy->getVMinion().size(); p++)
 			{
 
-				if (IntersectRect(&temp, &vNewItem[i].rc, &_enemy->getVMinion()[p]->getRect()))
+				if (IntersectRect(&temp, &vNewItem[i].rc, &_enemy->getVMinion()[p]->getRect()) && IsChange == false)
 				{
-					_enemy->getVMinion()[p]->setHP(0);
+					IsChange = true;
+					_enemy->getVMinion()[p]->setHP(_enemy->getVMinion()[p]->getHP() - 50);
 					break;
 				}
-
 			}
 		}
 	}
@@ -1055,9 +1080,8 @@ void cItemManager::Collision()
 		for (int p = 0; p < _enemy->getVMinion().size(); p++)
 		{
 			if (IntersectRect(&temp, &missileBomb.rcBomb, &_enemy->getVMinion()[p]->getRect()))
-			{
-				_enemy->getVMinion()[p]->setHP(0);
-				break;
+			{				
+				_enemy->getVMinion()[p]->setHP(_enemy->getVMinion()[p]->getHP() - 50);				
 			}
 		}
 	}
@@ -1111,6 +1135,21 @@ void cItemManager::Collision()
 				{
 					vNewItem[p].angle = getAngle(vNewItem[i].x, vNewItem[i].y, vNewItem[p].x, vNewItem[p].y);
 					vNewItem[p].moveSpeed = ITEMMOVETIME;
+					break;
+				}
+			}
+		}
+	}
+	//벽돌과충돌처리
+	for (int i = 0; i < vItem.size(); i++)
+	{
+		if (_player->GetIsFly() == false)
+		{
+			if (vItem[i].state == 벽돌)
+			{
+				if (_player->GetRC().bottom>vItem[i].rc.top)
+				{
+					_player->SetY(vItem[i].y - 40);
 					break;
 				}
 			}

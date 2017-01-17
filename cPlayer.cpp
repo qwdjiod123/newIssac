@@ -352,14 +352,14 @@ void cPlayer::render(void)
 	//==================================================================
 	//		## 수치확인용 ##
 	//==================================================================
-	for (int i = 0; i < vInventory.size(); i++)
+	/*for (int i = 0; i < vInventory.size(); i++)
 	{
 		wsprintf(buffer, TEXT("플레이어인벤:%d"), vInventory[i]);
 		TextOut(getMemDC(), 100, 10 + 20 * i, buffer, lstrlen(buffer));
 	}
 
 	wsprintf(buffer, TEXT("bomb:%d,  key:%d  money:%d"), bomb, key, money);
-	TextOut(getMemDC(), 10, 10, buffer, lstrlen(buffer));
+	TextOut(getMemDC(), 10, 10, buffer, lstrlen(buffer));*/
 }
 
 void cPlayer::animation(void)

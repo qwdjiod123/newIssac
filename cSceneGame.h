@@ -4,6 +4,7 @@
 #include"cItemManager.h"
 #include "cSceneManager.h"
 #include"enemyManager.h"
+#include"cSound.h"
 
 //이게 제일최신버젼임
 
@@ -11,6 +12,8 @@ class cSceneGame :public gameNode
 {
 
 private:
+	
+	cSound* _sound;
 
 	cPlayer* _player;
 	cItemManager* _im;
