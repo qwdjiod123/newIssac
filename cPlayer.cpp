@@ -69,6 +69,7 @@ HRESULT cPlayer::init(void)
 	deadFrame = 0;
 	deadAlpha = 255;
 	playerShot = false; 
+	hitCount = 0;
 	return S_OK;
 }
 
@@ -84,7 +85,7 @@ void cPlayer::release(void)
 
 void cPlayer::update(void)
 {
-	if (hp < 0)
+	if (hp <= 0)
 	{
 		animState = DEAD;
 	}
@@ -98,6 +99,11 @@ void cPlayer::update(void)
 	DamagedPlayer();
 	animation();
 	enemyIntersect();
+	if (hitCount > 0)
+	{
+		hitCount--;
+	}
+	
 }
 
 void cPlayer::render(void)
@@ -806,14 +812,22 @@ void cPlayer::enemyIntersect(void)
 				{
 					if (_enemy->getVMinionPt()->at(i)->getMobType() == BOSS)
 					{
-						if (IntersectRect(&temp, &_유황->getVBulletPt()->at(j).rc, &temp2))
+						if (IntersectRect(&temp, &_유황->getVBulletPt()->at(j).rc, &temp2)&&monsterShot==false&& _enemy->getVMinionPt()->at(i)->isHit())
 						{
+							_enemy->getVMinionPt()->at(i)->setHP(_enemy->getVMinionPt()->at(i)->getHP() - _유황->getVBulletPt()->at(j).damage);
+							_enemy->getVMinionPt()->at(i)->setHitTime(2);
 							monsterShot = true;
 						}
 						if (monsterShot == true)
 						{
-							_enemy->getVMinionPt()->at(i)->setHP(_enemy->getVMinionPt()->at(i)->getHP() - _유황->getVBulletPt()->at(j).damage);
-							monsterShot = false;
+							int static nCount = 0;
+							nCount++;
+							if (nCount>50)
+							{
+								nCount = 0;
+								monsterShot = false;
+							}
+							
 						}
 					}
 					else
@@ -834,39 +848,44 @@ void cPlayer::enemyIntersect(void)
 		}
 	}
 	//기본총알 또는 큰총알을 쏘았을 때 
-	if (arrow == 기본총알 && cardOn == true)
-	{
-		int itemp = _enemy->getVMinionPt()->size();				//전체 개수를 템프에 담는다. 
-		for (int i = 0; i < _enemy->getVMinionPt()->size(); i++)	//전체 개수만큼 조사한다.
-		{
-			RECT temp;
-			RECT temp2 = _enemy->getVMinionPt()->at(i)->getRect(); //현재 몬스터의 몸체를  temp2에 담는다. 
-			if (!_큰총알->getVBulletPt()->empty())						 //총알이 살아있다면! 즉 발사되었다면 
-			{
-				for (int j = 0; j < _큰총알->getVBulletPt()->size(); j++)
-				{
-					if (IntersectRect(&temp, &_큰총알->getVBulletPt()->at(j).rc, &temp2))	//큰총알의 몸체와, 적의 몸체가 부딪히면 
-					{//적의 몸체->장소(i)번째..->hp를 깎아라. 
-						_enemy->getVMinionPt()->at(i)->setHP(_enemy->getVMinionPt()->at(i)->getHP() - _큰총알->getVBulletPt()->at(j).damage);
-					}
-				}
-			}
-		}
-	}
+	//if (arrow == 기본총알 && cardOn == true)
+	//{
+	//	int itemp = _enemy->getVMinionPt()->size();				//전체 개수를 템프에 담는다. 
+	//	for (int i = 0; i < _enemy->getVMinionPt()->size(); i++)	//전체 개수만큼 조사한다.
+	//	{
+	//		RECT temp;
+	//		RECT temp2 = _enemy->getVMinionPt()->at(i)->getRect(); //현재 몬스터의 몸체를  temp2에 담는다. 
+	//		if (!_큰총알->getVBulletPt()->empty())						 //총알이 살아있다면! 즉 발사되었다면 
+	//		{
+	//			for (int j = 0; j < _큰총알->getVBulletPt()->size(); j++)
+	//			{
+	//				if (IntersectRect(&temp, &_큰총알->getVBulletPt()->at(j).rc, &temp2))	//큰총알의 몸체와, 적의 몸체가 부딪히면 
+	//				{//적의 몸체->장소(i)번째..->hp를 깎아라. 
+	//					_enemy->getVMinionPt()->at(i)->setHP(_enemy->getVMinionPt()->at(i)->getHP() - _큰총알->getVBulletPt()->at(j).damage);
+	//				}
+	//			}
+	//		}
+	//	}
+	//}
 	//총알에 플레이어가 맞았을 때. 
 	for (int i = 0; i < _enemy->getFrameBullet()->getVBulletPt()->size(); i++)
 	{
 		RECT temp;
 		if (IntersectRect(&temp, &_enemy->getFrameBullet()->getVBulletPt()->at(i).rc, &rc))
 		{
-			animState = DAMAGE;
-			angle = getAngle(_enemy->getFrameBullet()->getVBulletPt()->at(i).x, _enemy->getFrameBullet()->getVBulletPt()->at(i).y
-				,x, y);
-			playerShot = true; 
-			_enemy->getFrameBullet()->removeBullet(i);
+			if (hitCount <= 0)
+			{
+				animState = DAMAGE;
+				angle = getAngle(_enemy->getFrameBullet()->getVBulletPt()->at(i).x, _enemy->getFrameBullet()->getVBulletPt()->at(i).y
+					, x, y);
+				playerShot = true;
+				_enemy->getFrameBullet()->removeBullet(i);
+			}
+			
 		}
 		if (playerShot == true)
 		{
+			hitCount == 20;
 			hp--;
 			playerShot = false; 
 		}
@@ -877,18 +896,23 @@ void cPlayer::enemyIntersect(void)
 		RECT temp;
 		if (IntersectRect(&temp, &_enemy->getHFrameBullet()->getVBulletPt()->at(i).rc, &rc))
 		{
-			if (_enemy->getHFrameBullet()->getVBulletPt()->at(i)._height < 5)
+			if (hitCount <= 0)
 			{
-				animState = DAMAGE;
-				angle = getAngle(_enemy->getHFrameBullet()->getVBulletPt()->at(i).x, _enemy->getHFrameBullet()->getVBulletPt()->at(i).y, x, y);
-				playerShot = true;
-				_enemy->getHFrameBullet()->removeBullet(i);
+				if (_enemy->getHFrameBullet()->getVBulletPt()->at(i)._height < 5)
+				{
+					animState = DAMAGE;
+					angle = getAngle(_enemy->getHFrameBullet()->getVBulletPt()->at(i).x, _enemy->getHFrameBullet()->getVBulletPt()->at(i).y, x, y);
+					playerShot = true;
+					_enemy->getHFrameBullet()->removeBullet(i);
+				}
+				if (playerShot == true)
+				{
+					hitCount = 20;
+					hp--;
+					playerShot = false;
+				}
 			}
-			if (playerShot == true)
-			{
-				hp--;
-				playerShot = false;
-			}
+			
 		}
 	}
 

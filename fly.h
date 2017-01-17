@@ -63,6 +63,7 @@ public:
 
 	void damage(int dmg) { _HP -= dmg; }
 
+	void pixelCol();
 
 
 	fly() {};

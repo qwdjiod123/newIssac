@@ -166,6 +166,9 @@ void loadingScene::loadingImage(void)
 	_loading->loadImage("emptyHP", "emptyHP.bmp", 309, 33, true, RGB(255, 0, 255));
 	_loading->loadImage("HP", "HP.bmp", 276, 18, true, RGB(255, 0, 255));
 
+	_loading->loadImage("shadowB", "shadowB.bmp", 15, 4, true, RGB(255, 0, 255));
+	_loading->loadImage("shadowBOSS", "shadowBOSS.bmp", 150, 36, true, RGB(255, 0, 255));
+
 	//2017/01/14/ 언식이 추가
 
 	//인트로 이미지

@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "groundEnemy.h"
 #include"cPlayer.h"
+#include"cSceneManager.h"
+
 
 groundEnemy::groundEnemy()
 {
@@ -148,7 +150,7 @@ void groundEnemy::move()
 	}
 
 
-	
+	pixelCol();
 
 }
 
@@ -187,7 +189,7 @@ void groundEnemy::draw()
 			switch (_move)
 			{
 			case UP:
-				IMAGEMANAGER->findImage("wormUAR")->frameRender(getMemDC(), _rc.left, _rc.top, _currentFrameX, _currentFrameY);
+				IMAGEMANAGER->findImage("wormUR")->frameRender(getMemDC(), _rc.left, _rc.top, _currentFrameX, _currentFrameY);
 				
 				break;
 			case DOWN:
@@ -306,3 +308,525 @@ void groundEnemy::animation()
 	time++;
 }
 
+void groundEnemy::pixelCol()
+{
+	int currentMap = _sceneManager->GetCurrentMap();
+	if (currentMap == 첫번째방)
+	{
+		if (_move == LEFT)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("firstMapPX")->getMemDC(), _rc.left, _y - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0)|| (r == 0 && g == 255 && b == 0))//마젠타가 아닌경우
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = PI - _knockBackAngle;
+				}
+			}
+		}
+		else if (_move == RIGHT)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("firstMapPX")->getMemDC(), _rc.right, _y - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))//마젠타가 아닌경우
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = PI - _knockBackAngle;
+				}
+			}
+		}
+		else if (_move == UP)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("firstMapPX")->getMemDC(), _x, _rc.top- 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))//마젠타가 아닌경우
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = -_knockBackAngle;
+				}
+			}
+		}
+		else if (_move == DOWN)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("firstMapPX")->getMemDC(), _x, _rc.bottom - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))//마젠타가 아닌경우
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = -_knockBackAngle;
+				}
+			}
+		}
+	}
+	else if (currentMap == 두번째방)
+	{
+		if (_move == LEFT)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("secondMapPX")->getMemDC(), _rc.left, _y - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = PI - _knockBackAngle;
+				}
+			}
+		}
+		else if (_move == RIGHT)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("secondMapPX")->getMemDC(), _rc.right, _y - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = PI - _knockBackAngle;
+				}
+			}
+		}
+		else if (_move == UP)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("secondMapPX")->getMemDC(), _x, _rc.top - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = -_knockBackAngle;
+				}
+			}
+		}
+		else if (_move == DOWN)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("secondMapPX")->getMemDC(), _x, _rc.bottom - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = -_knockBackAngle;
+				}
+			}
+		}
+	}
+	else if (currentMap == 세번째방)
+	{
+		if (_move == LEFT)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("thirdMapPX")->getMemDC(), _rc.left, _y - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = PI - _knockBackAngle;
+				}
+			}
+		}
+		else if (_move == RIGHT)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("thirdMapPX")->getMemDC(), _rc.right, _y - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = PI - _knockBackAngle;
+				}
+			}
+		}
+		else if (_move == UP)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("thirdMapPX")->getMemDC(), _x, _rc.top - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = -_knockBackAngle;
+				}
+			}
+		}
+		else if (_move == DOWN)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("thirdMapPX")->getMemDC(), _x, _rc.bottom - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = -_knockBackAngle;
+				}
+			}
+		}
+	}
+	else if (currentMap == 네번째방)
+	{
+		if (_move == LEFT)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("fourthMapPX")->getMemDC(), _rc.left, _y - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = PI - _knockBackAngle;
+				}
+			}
+		}
+		else if (_move == RIGHT)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("fourthMapPX")->getMemDC(), _rc.right, _y - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = PI - _knockBackAngle;
+				}
+			}
+		}
+		else if (_move == UP)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("fourthMapPX")->getMemDC(), _x, _rc.top - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = -_knockBackAngle;
+				}
+			}
+		}
+		else if (_move == DOWN)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("fourthMapPX")->getMemDC(), _x, _rc.bottom - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = -_knockBackAngle;
+				}
+			}
+		}
+	}
+	else if (currentMap == 다섯번째방)
+	{
+		if (_move == LEFT)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("fifthMapPX")->getMemDC(), _rc.left, _y - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = PI - _knockBackAngle;
+				}
+			}
+		}
+		else if (_move == RIGHT)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("fifthMapPX")->getMemDC(), _rc.right, _y - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = PI - _knockBackAngle;
+				}
+			}
+		}
+		else if (_move == UP)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("fifthMapPX")->getMemDC(), _x, _rc.top - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = -_knockBackAngle;
+				}
+			}
+		}
+		else if (_move == DOWN)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("fifthMapPX")->getMemDC(), _x, _rc.bottom - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = -_knockBackAngle;
+				}
+			}
+		}
+	}
+	else if (currentMap == 여섯번째방)
+	{
+		if (_move == LEFT)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("sixthMapPX")->getMemDC(), _rc.left, _y - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = PI - _knockBackAngle;
+				}
+			}
+		}
+		else if (_move == RIGHT)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("sixthMapPX")->getMemDC(), _rc.right, _y - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = PI - _knockBackAngle;
+				}
+			}
+		}
+		else if (_move == UP)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("sixthMapPX")->getMemDC(), _x, _rc.top - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = -_knockBackAngle;
+				}
+			}
+		}
+		else if (_move == DOWN)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("sixthMapPX")->getMemDC(), _x, _rc.bottom - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = -_knockBackAngle;
+				}
+			}
+		}
+	}
+	else if (currentMap == 일곱번째방)
+	{
+		if (_move == LEFT)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("seventhMapPX")->getMemDC(), _rc.left, _y - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = PI - _knockBackAngle;
+				}
+			}
+		}
+		else if (_move == RIGHT)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("seventhMapPX")->getMemDC(), _rc.right, _y - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = PI - _knockBackAngle;
+				}
+			}
+		}
+		else if (_move == UP)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("seventhMapPX")->getMemDC(), _x, _rc.top - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = -_knockBackAngle;
+				}
+			}
+		}
+		else if (_move == DOWN)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("seventhMapPX")->getMemDC(), _x, _rc.bottom - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = -_knockBackAngle;
+				}
+			}
+		}
+	}
+	else if (currentMap == 여덟번째방)
+	{
+		if (_move == LEFT)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("eighthMapPX")->getMemDC(), _rc.left, _y - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = PI - _knockBackAngle;
+				}
+			}
+		}
+		else if (_move == RIGHT)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("eighthMapPX")->getMemDC(), _rc.right, _y - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = PI - _knockBackAngle;
+				}
+			}
+		}
+		else if (_move == UP)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("eighthMapPX")->getMemDC(), _x, _rc.top - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = -_knockBackAngle;
+				}
+			}
+		}
+		else if (_move == DOWN)
+		{
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("eighthMapPX")->getMemDC(), _x, _rc.bottom - 90);
+			BYTE r = GetRValue(color);
+			BYTE g = GetGValue(color);
+			BYTE b = GetBValue(color);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				resetMove();
+				if (_knockBackCount > 0)
+				{
+					_knockBackAngle = -_knockBackAngle;
+				}
+			}
+		}
+	}
+}
+
+void groundEnemy::resetMove()
+{
+	int pMove = _move;
+	while (true)
+	{
+		_move = RND->getFromIntTo(0, 3);
+		if (pMove != _move)
+		{
+			break;
+		}
+	}
+	_moveSpeed = 2.0f;
+}

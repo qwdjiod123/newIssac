@@ -26,7 +26,7 @@ private:
 	float _y;						//중심 Y
 	float _moveSpeed;				//움직임 속도
 	int _HP;						//몹의 체력
-	MOVESTATE _move;				//움직이는 타입을 고르는 이넘문
+	int _move;				//움직이는 타입을 고르는 이넘문
 	int _attackCount;				//공격중인 카운트 시간
 	cPlayer* _player;				//플레이어의 주소 저장 변수
 	bool isAttack;					//지금 공격중인지? 확인하는 불리언
@@ -64,6 +64,9 @@ public:
 	virtual int getMobType() { return WORM; }
 
 	virtual void setHitTime(int count) { _hitTime = count; }
+
+	void pixelCol();
+	void resetMove();
 
 	void damage(int dmg) { _HP -= dmg; }
 

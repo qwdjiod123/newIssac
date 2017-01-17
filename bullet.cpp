@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "bullet.h"
+#include"cSceneManager.h"
 //=============================================================
 //	## bullet ## (공용총알 - 너희들이 만들어라~~~)
 //=============================================================
@@ -308,6 +309,7 @@ void frameBullet::release(void)
 void frameBullet::update(void)
 {
 	move();
+	pixelCol();
 }
 
 void frameBullet::render(void)
@@ -392,6 +394,393 @@ void frameBullet::removeBullet(int index)
 	_vBullet.erase(_vBullet.begin() + index);
 }
 
+void frameBullet::pixelCol()
+{
+	int current = _scene->GetCurrentMap();
+	_viBullet = _vBullet.begin();
+	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end(); ++_viBullet)
+	{
+		if (current == 첫번째방)
+		{
+			COLORREF colorL = GetPixel(IMAGEMANAGER->findImage("firstMapPX")->getMemDC(), _viBullet->rc.left, _viBullet->y - 90);
+			COLORREF colorR = GetPixel(IMAGEMANAGER->findImage("firstMapPX")->getMemDC(), _viBullet->rc.right, _viBullet->y - 90);
+			COLORREF colorU = GetPixel(IMAGEMANAGER->findImage("firstMapPX")->getMemDC(), _viBullet->x, _viBullet->rc.top - 90);
+			COLORREF colorD = GetPixel(IMAGEMANAGER->findImage("firstMapPX")->getMemDC(), _viBullet->x, _viBullet->rc.bottom - 90);
+
+			int r = GetRValue(colorL);
+			int g = GetGValue(colorL);
+			int b = GetBValue(colorL);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+
+			r = GetRValue(colorR);
+			g = GetGValue(colorR);
+			b = GetBValue(colorR);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+
+			r = GetRValue(colorU);
+			g = GetGValue(colorU);
+			b = GetBValue(colorU);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+
+			r = GetRValue(colorD);
+			g = GetGValue(colorD);
+			b = GetBValue(colorD);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+		}
+		else if (current == 두번째방)
+		{
+			COLORREF colorL = GetPixel(IMAGEMANAGER->findImage("secondMapPX")->getMemDC(), _viBullet->rc.left, _viBullet->y - 90);
+			COLORREF colorR = GetPixel(IMAGEMANAGER->findImage("secondMapPX")->getMemDC(), _viBullet->rc.right, _viBullet->y - 90);
+			COLORREF colorU = GetPixel(IMAGEMANAGER->findImage("secondMapPX")->getMemDC(), _viBullet->x, _viBullet->rc.top - 90);
+			COLORREF colorD = GetPixel(IMAGEMANAGER->findImage("secondMapPX")->getMemDC(), _viBullet->x, _viBullet->rc.bottom - 90);
+
+			int r = GetRValue(colorL);
+			int g = GetGValue(colorL);
+			int b = GetBValue(colorL);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+
+			r = GetRValue(colorR);
+			g = GetGValue(colorR);
+			b = GetBValue(colorR);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+
+			r = GetRValue(colorU);
+			g = GetGValue(colorU);
+			b = GetBValue(colorU);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+
+			r = GetRValue(colorD);
+			g = GetGValue(colorD);
+			b = GetBValue(colorD);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+		}
+		else if (current == 세번째방)
+		{
+			COLORREF colorL = GetPixel(IMAGEMANAGER->findImage("thirdMapPX")->getMemDC(), _viBullet->rc.left, _viBullet->y - 90);
+			COLORREF colorR = GetPixel(IMAGEMANAGER->findImage("thirdMapPX")->getMemDC(), _viBullet->rc.right, _viBullet->y - 90);
+			COLORREF colorU = GetPixel(IMAGEMANAGER->findImage("thirdMapPX")->getMemDC(), _viBullet->x, _viBullet->rc.top - 90);
+			COLORREF colorD = GetPixel(IMAGEMANAGER->findImage("thirdMapPX")->getMemDC(), _viBullet->x, _viBullet->rc.bottom - 90);
+
+			int r = GetRValue(colorL);
+			int g = GetGValue(colorL);
+			int b = GetBValue(colorL);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+
+			r = GetRValue(colorR);
+			g = GetGValue(colorR);
+			b = GetBValue(colorR);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+
+			r = GetRValue(colorU);
+			g = GetGValue(colorU);
+			b = GetBValue(colorU);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+
+			r = GetRValue(colorD);
+			g = GetGValue(colorD);
+			b = GetBValue(colorD);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+		}
+		else if (current == 네번째방)
+		{
+			COLORREF colorL = GetPixel(IMAGEMANAGER->findImage("forthMapPX")->getMemDC(), _viBullet->rc.left, _viBullet->y - 90);
+			COLORREF colorR = GetPixel(IMAGEMANAGER->findImage("forthMapPX")->getMemDC(), _viBullet->rc.right, _viBullet->y - 90);
+			COLORREF colorU = GetPixel(IMAGEMANAGER->findImage("forthMapPX")->getMemDC(), _viBullet->x, _viBullet->rc.top - 90);
+			COLORREF colorD = GetPixel(IMAGEMANAGER->findImage("forthMapPX")->getMemDC(), _viBullet->x, _viBullet->rc.bottom - 90);
+
+			int r = GetRValue(colorL);
+			int g = GetGValue(colorL);
+			int b = GetBValue(colorL);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+
+			r = GetRValue(colorR);
+			g = GetGValue(colorR);
+			b = GetBValue(colorR);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+
+			r = GetRValue(colorU);
+			g = GetGValue(colorU);
+			b = GetBValue(colorU);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+
+			r = GetRValue(colorD);
+			g = GetGValue(colorD);
+			b = GetBValue(colorD);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+		}
+		else if (current == 다섯번째방)
+		{
+			COLORREF colorL = GetPixel(IMAGEMANAGER->findImage("fifthMapPX")->getMemDC(), _viBullet->rc.left, _viBullet->y - 90);
+			COLORREF colorR = GetPixel(IMAGEMANAGER->findImage("fifthMapPX")->getMemDC(), _viBullet->rc.right, _viBullet->y - 90);
+			COLORREF colorU = GetPixel(IMAGEMANAGER->findImage("fifthMapPX")->getMemDC(), _viBullet->x, _viBullet->rc.top - 90);
+			COLORREF colorD = GetPixel(IMAGEMANAGER->findImage("fifthMapPX")->getMemDC(), _viBullet->x, _viBullet->rc.bottom - 90);
+
+			int r = GetRValue(colorL);
+			int g = GetGValue(colorL);
+			int b = GetBValue(colorL);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+
+			r = GetRValue(colorR);
+			g = GetGValue(colorR);
+			b = GetBValue(colorR);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+
+			r = GetRValue(colorU);
+			g = GetGValue(colorU);
+			b = GetBValue(colorU);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+
+			r = GetRValue(colorD);
+			g = GetGValue(colorD);
+			b = GetBValue(colorD);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+		}
+		else if (current == 여섯번째방)
+		{
+			COLORREF colorL = GetPixel(IMAGEMANAGER->findImage("sixthMapPX")->getMemDC(), _viBullet->rc.left, _viBullet->y - 90);
+			COLORREF colorR = GetPixel(IMAGEMANAGER->findImage("sixthMapPX")->getMemDC(), _viBullet->rc.right, _viBullet->y - 90);
+			COLORREF colorU = GetPixel(IMAGEMANAGER->findImage("sixthMapPX")->getMemDC(), _viBullet->x, _viBullet->rc.top - 90);
+			COLORREF colorD = GetPixel(IMAGEMANAGER->findImage("sixthMapPX")->getMemDC(), _viBullet->x, _viBullet->rc.bottom - 90);
+
+			int r = GetRValue(colorL);
+			int g = GetGValue(colorL);
+			int b = GetBValue(colorL);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+
+			r = GetRValue(colorR);
+			g = GetGValue(colorR);
+			b = GetBValue(colorR);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+
+			r = GetRValue(colorU);
+			g = GetGValue(colorU);
+			b = GetBValue(colorU);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+
+			r = GetRValue(colorD);
+			g = GetGValue(colorD);
+			b = GetBValue(colorD);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+		}
+		else if (current == 일곱번째방)
+		{
+			COLORREF colorL = GetPixel(IMAGEMANAGER->findImage("seventhMapPX")->getMemDC(), _viBullet->rc.left, _viBullet->y - 90);
+			COLORREF colorR = GetPixel(IMAGEMANAGER->findImage("seventhMapPX")->getMemDC(), _viBullet->rc.right, _viBullet->y - 90);
+			COLORREF colorU = GetPixel(IMAGEMANAGER->findImage("seventhMapPX")->getMemDC(), _viBullet->x, _viBullet->rc.top - 90);
+			COLORREF colorD = GetPixel(IMAGEMANAGER->findImage("seventhMapPX")->getMemDC(), _viBullet->x, _viBullet->rc.bottom - 90);
+
+			int r = GetRValue(colorL);
+			int g = GetGValue(colorL);
+			int b = GetBValue(colorL);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+
+			r = GetRValue(colorR);
+			g = GetGValue(colorR);
+			b = GetBValue(colorR);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+
+			r = GetRValue(colorU);
+			g = GetGValue(colorU);
+			b = GetBValue(colorU);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+
+			r = GetRValue(colorD);
+			g = GetGValue(colorD);
+			b = GetBValue(colorD);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+		}
+		else if (current == 여덟번째방)
+		{
+			COLORREF colorL = GetPixel(IMAGEMANAGER->findImage("eighthMapPX")->getMemDC(), _viBullet->rc.left, _viBullet->y - 90);
+			COLORREF colorR = GetPixel(IMAGEMANAGER->findImage("eighthMapPX")->getMemDC(), _viBullet->rc.right, _viBullet->y - 90);
+			COLORREF colorU = GetPixel(IMAGEMANAGER->findImage("eighthMapPX")->getMemDC(), _viBullet->x, _viBullet->rc.top - 90);
+			COLORREF colorD = GetPixel(IMAGEMANAGER->findImage("eighthMapPX")->getMemDC(), _viBullet->x, _viBullet->rc.bottom - 90);
+
+			int r = GetRValue(colorL);
+			int g = GetGValue(colorL);
+			int b = GetBValue(colorL);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+
+			r = GetRValue(colorR);
+			g = GetGValue(colorR);
+			b = GetBValue(colorR);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+
+			r = GetRValue(colorU);
+			g = GetGValue(colorU);
+			b = GetBValue(colorU);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+
+			r = GetRValue(colorD);
+			g = GetGValue(colorD);
+			b = GetBValue(colorD);
+			if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+				_viBullet = _vBullet.erase(_viBullet);
+				break;
+			}
+		}
+
+
+	}
+}
+
 
 //=============================================================
 //	## hoppingBullet ## (곡사총알)
@@ -417,6 +806,7 @@ void hoppingBullet::release(void)
 void hoppingBullet::update(void)
 {
 	move();
+	pixelCol();
 }
 
 void hoppingBullet::render(void)
@@ -425,6 +815,7 @@ void hoppingBullet::render(void)
 	for (_viBullet; _viBullet != _vBullet.end(); ++_viBullet)
 	{
 		_viBullet->bulletImage->frameRender(getMemDC(), _viBullet->rc.left, _viBullet->rc.top, _viBullet->bulletImage->getFrameX(), _viBullet->bulletImage->getFrameY());
+		IMAGEMANAGER->findImage("shadowB")->render(getMemDC(), _viBullet->x - 7, _viBullet->y + 17);
 	}
 }
 
@@ -487,7 +878,7 @@ void hoppingBullet::move(void)
 
 		if (_viBullet->_height>10)
 		{
-			EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y);
+			EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y + _viBullet->_height);
 			_viBullet = _vBullet.erase(_viBullet);
 		}
 		else
@@ -496,6 +887,62 @@ void hoppingBullet::move(void)
 		}
 	}
 	_time++;
+}
+
+void hoppingBullet::pixelCol()
+{
+	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end(); ++_viBullet)
+	{
+		COLORREF colorL = GetPixel(IMAGEMANAGER->findImage("thirdMapPX")->getMemDC(), _viBullet->x - (_viBullet->bulletImage->getFrameWidth() / 2), _viBullet->y - 90);
+		COLORREF colorR = GetPixel(IMAGEMANAGER->findImage("thirdMapPX")->getMemDC(), _viBullet->x + (_viBullet->bulletImage->getFrameWidth() / 2), _viBullet->y - 90);
+		COLORREF colorU = GetPixel(IMAGEMANAGER->findImage("thirdMapPX")->getMemDC(), _viBullet->x, _viBullet->y - (_viBullet->bulletImage->getFrameHeight() / 2) - 90);
+		COLORREF colorD = GetPixel(IMAGEMANAGER->findImage("thirdMapPX")->getMemDC(), _viBullet->x, _viBullet->y + (_viBullet->bulletImage->getFrameHeight() - 90));
+
+		int r = GetRValue(colorL);
+		int g = GetGValue(colorL);
+		int b = GetBValue(colorL);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y + _viBullet->_height);
+			_viBullet = _vBullet.erase(_viBullet);
+			break;
+		}
+
+		r = GetRValue(colorR);
+		g = GetGValue(colorR);
+		b = GetBValue(colorR);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y + _viBullet->_height);
+			_viBullet = _vBullet.erase(_viBullet);
+			break;
+		}
+
+		r = GetRValue(colorU);
+		g = GetGValue(colorU);
+		b = GetBValue(colorU);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+
+			EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y + _viBullet->_height);
+			_viBullet = _vBullet.erase(_viBullet);
+			break;
+		}
+
+		r = GetRValue(colorD);
+		g = GetGValue(colorD);
+		b = GetBValue(colorD);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_viBullet->_height < 10)
+			{
+				EFFECTMANAGER->addEffect("bulletEffect", _viBullet->x, _viBullet->y + _viBullet->_height);
+				_viBullet = _vBullet.erase(_viBullet);
+			}
+			break;
+		}
+	}
+
 }
 
 void hoppingBullet::removeBullet(int index)

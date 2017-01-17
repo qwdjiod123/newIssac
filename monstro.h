@@ -82,6 +82,8 @@ public:
 
 	virtual void setHitTime(int count) { _hitTime = count; }
 
+	void pixelCol();
+
 	monstro() {};
 	~monstro() {};
 };

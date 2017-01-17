@@ -9,9 +9,6 @@ HRESULT enemy::init(void)
 HRESULT enemy::init(char * imageName, POINT position)
 {
 	
-
-	
-
 	return S_OK;
 }
 

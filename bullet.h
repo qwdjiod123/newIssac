@@ -96,6 +96,7 @@ public:
 
 
 
+class cSceneManager;
 class frameBullet : public gameNode
 {
 private:
@@ -107,6 +108,7 @@ private:
 	char* _imageName;	//총알 이미지 키값	
 	int _bulletMax;		//총알 최대갯수
 	int _time;
+	cSceneManager* _scene;
 public:
 	//총알이미지키값, 총알갯수, 총알사거리로 초기화
 	HRESULT init(char* imageName, int bulletMax);
@@ -121,6 +123,10 @@ public:
 
 	//총알삭제
 	void removeBullet(int index);
+
+	void setScene(cSceneManager* scene) { _scene = scene; }
+
+	void pixelCol();
 
 	//총알벡터 가져오기
 	vector<tagBullet> getVBullet() { return _vBullet; }
@@ -166,6 +172,7 @@ private:
 	char* _imageName;	//총알 이미지 키값	
 	int _bulletMax;		//총알 최대갯수
 	int _time;
+	cSceneManager* _scene;
 public:
 	//총알이미지키값, 총알갯수, 총알사거리로 초기화
 	HRESULT init(char* imageName, int bulletMax);
@@ -177,6 +184,10 @@ public:
 	void fire(float x, float y, float angle, float jumpPower, int damage, int bulletSpeed);
 	//총알무브
 	void move(void);
+
+	void setScene(cSceneManager* scene) { _scene = scene; }
+
+	void pixelCol();
 
 	//총알삭제
 	void removeBullet(int index);
@@ -190,7 +201,6 @@ public:
 	hoppingBullet() {}
 	~hoppingBullet() {}
 };
-
 
 
 

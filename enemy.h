@@ -3,6 +3,7 @@
 
 //부모클래스 => 이놈을 상속받아서 보스, 일반몬스터등을 만든다
 
+class cSceneManager;
 enum mobType
 {
 	FLY,
@@ -25,6 +26,9 @@ private:
 	//랜덤으로 총알 발사 쿨타임주기
 	int _fireCount;
 	int _rndFireCount;
+
+protected:
+	cSceneManager* _sceneManager;
 
 public:
 	virtual HRESULT init(void);
@@ -60,6 +64,8 @@ public:
 	virtual RECT getRect() { return _rc; }
 	
 	virtual bool isHit() { return true; }
+
+	virtual void setSceneManager(cSceneManager* sceneManager) {_sceneManager = sceneManager;}
 
 	enemy() {}
 	virtual ~enemy() {}

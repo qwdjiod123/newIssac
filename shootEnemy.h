@@ -60,6 +60,8 @@ public:
 
 	virtual void setHitTime(int count) { _hitTime = count; }
 
+	void pixelCol();
+
 	void damage(int dmg) { _HP -= dmg; }
 	shootEnemy() {};
 	~shootEnemy() {};

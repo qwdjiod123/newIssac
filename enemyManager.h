@@ -6,10 +6,11 @@
 #include"fly.h"
 #include"shootEnemy.h"
 #include"monstro.h"
-#include"cSceneManager.h"
+
 //상호참조용 플레이어 클래스 전방선언
 
 class cPlayer;
+class cSceneManager;
 class enemyManager : public gameNode
 {
 private:
@@ -19,8 +20,9 @@ private:
 	cPlayer* _player;
 	frameBullet* _bullet;
 	hoppingBullet* _hBullet;
+	cSceneManager* _SceneManager;
 	int _count;
-
+	bool monsterSet[10];
 		//동적할당 하면 안된다!!!
 
 public:
@@ -50,8 +52,11 @@ public:
 
 	void setPlayer(cPlayer* player) { _player = player; }
 
+	void setSceneManager(cSceneManager* SceneManager) { _SceneManager = SceneManager; }
+
 	void addEnemy(string KEY,float centerX,float centerY);
 
+	void spwnMonster();
 
 	//상호참조시 플레이어포인터를 넘길 셋터함수
 	

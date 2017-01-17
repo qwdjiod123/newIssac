@@ -2,7 +2,7 @@
 #include "monstro.h"
 #include"cPlayer.h"
 #include"bullet.h"
-
+#include"cSceneManager.h"
 
 HRESULT monstro::init(void)
 {
@@ -179,6 +179,7 @@ void monstro::move()
 		}
 	}
 	
+	pixelCol();
 
 	if (_coolTime > 0)
 	{
@@ -190,6 +191,8 @@ void monstro::move()
 void monstro::draw()
 {
 	HPrender();
+
+	//IMAGEMANAGER->findImage("shadowBOSS")->render(getMemDC(), _x - 75, _y + 15);
 
 	if (KEYMANAGER->isToggleKey(VK_F1))
 	{
@@ -371,4 +374,61 @@ void monstro::HPrender()
 	
 
 
+}
+
+void monstro::pixelCol()
+{
+	COLORREF colorL = GetPixel(IMAGEMANAGER->findImage("thirdMapPX")->getMemDC(), _x- (IMAGEMANAGER->findImage("monstroAll")->getFrameWidth()/2), _y - 90);
+	COLORREF colorR = GetPixel(IMAGEMANAGER->findImage("thirdMapPX")->getMemDC(), _x + (IMAGEMANAGER->findImage("monstroAll")->getFrameWidth() / 2), _y - 90);
+	COLORREF colorU = GetPixel(IMAGEMANAGER->findImage("thirdMapPX")->getMemDC(), _x, _y- (IMAGEMANAGER->findImage("monstroAll")->getFrameHeight() / 2) - 90);
+	COLORREF colorD = GetPixel(IMAGEMANAGER->findImage("thirdMapPX")->getMemDC(), _x, _y + (IMAGEMANAGER->findImage("monstroAll")->getFrameHeight() / 2) - 90);
+
+	int r = GetRValue(colorL);
+	int g = GetGValue(colorL);
+	int b = GetBValue(colorL);
+	if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+	{
+		if (_coolTime <= 0)
+		{
+			_x -= cosf(_angle)*_moveSpeed;
+			_y -= -sinf(_angle)*_moveSpeed;
+		}
+	
+	}
+
+	r = GetRValue(colorR);
+	g = GetGValue(colorR);
+	b = GetBValue(colorR);
+	if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+	{
+		if (_coolTime <= 0)
+		{
+			_x -= cosf(_angle)*_moveSpeed;
+			_y -= -sinf(_angle)*_moveSpeed;
+		}
+	}
+
+	r = GetRValue(colorU);
+	g = GetGValue(colorU);
+	b = GetBValue(colorU);
+	if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+	{
+		if (_coolTime <= 0)
+		{
+			_x -= cosf(_angle)*_moveSpeed;
+			_y -= -sinf(_angle)*_moveSpeed;
+		}
+	}
+
+	r = GetRValue(colorD);
+	g = GetGValue(colorD);
+	b = GetBValue(colorD);
+	if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+	{
+		if (_coolTime <= 0)
+		{
+			_x -= cosf(_angle)*_moveSpeed;
+			_y -= -sinf(_angle)*_moveSpeed;
+		}
+	}
 }

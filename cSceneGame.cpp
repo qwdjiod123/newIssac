@@ -22,6 +22,7 @@ HRESULT cSceneGame::init(void)
 	_im->init();
 	
 	_enemy->setPlayer(_player);
+	_enemy->setSceneManager(_sm);
 	_enemy->init();
 	
 

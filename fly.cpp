@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "fly.h"
 #include"cPlayer.h"
+#include"cSceneManager.h"
 
 HRESULT fly::init(void)
 {
@@ -99,6 +100,422 @@ void fly::animation()
 	
 
 	rendercount++;
+}
+
+void fly::pixelCol()
+{
+	int currentMap = _sceneManager->GetCurrentMap();
+	if (currentMap == 첫번째방)
+	{
+		COLORREF colorL = GetPixel(IMAGEMANAGER->findImage("firstMapPX")->getMemDC(), _rc.left, _y - 90);
+		COLORREF colorR = GetPixel(IMAGEMANAGER->findImage("firstMapPX")->getMemDC(), _rc.right, _y - 90);
+		COLORREF colorU = GetPixel(IMAGEMANAGER->findImage("firstMapPX")->getMemDC(), _x, _rc.top - 90);
+		COLORREF colorD = GetPixel(IMAGEMANAGER->findImage("firstMapPX")->getMemDC(), _x, _rc.bottom - 90);
+
+		int r = GetRValue(colorL);
+		int g = GetGValue(colorL);
+		int b = GetBValue(colorL);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = PI - _knockBackAngle;
+			}
+		}
+
+		r = GetRValue(colorR);
+		g = GetGValue(colorR);
+		b = GetBValue(colorR);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = PI - _knockBackAngle;
+			}
+		}
+
+		r = GetRValue(colorU);
+		g = GetGValue(colorU);
+		b = GetBValue(colorU);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = -_knockBackAngle;
+			}
+		}
+
+		r = GetRValue(colorD);
+		g = GetGValue(colorD);
+		b = GetBValue(colorD);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = -_knockBackAngle;
+			}
+		}
+
+
+	}
+	else if (currentMap == 두번째방)
+	{
+		COLORREF colorL = GetPixel(IMAGEMANAGER->findImage("secondMapPX")->getMemDC(), _rc.left, _y - 90);
+		COLORREF colorR = GetPixel(IMAGEMANAGER->findImage("secondMapPX")->getMemDC(), _rc.right, _y - 90);
+		COLORREF colorU = GetPixel(IMAGEMANAGER->findImage("secondMapPX")->getMemDC(), _x, _rc.top - 90);
+		COLORREF colorD = GetPixel(IMAGEMANAGER->findImage("secondMapPX")->getMemDC(), _x, _rc.bottom - 90);
+
+		int r = GetRValue(colorL);
+		int g = GetGValue(colorL);
+		int b = GetBValue(colorL);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = PI - _knockBackAngle;
+			}
+		}
+
+		r = GetRValue(colorR);
+		g = GetGValue(colorR);
+		b = GetBValue(colorR);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = PI - _knockBackAngle;
+			}
+		}
+
+		r = GetRValue(colorU);
+		g = GetGValue(colorU);
+		b = GetBValue(colorU);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = -_knockBackAngle;
+			}
+		}
+
+		r = GetRValue(colorD);
+		g = GetGValue(colorD);
+		b = GetBValue(colorD);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = -_knockBackAngle;
+			}
+		}
+
+	}
+	else if (currentMap == 세번째방)
+	{
+		COLORREF colorL = GetPixel(IMAGEMANAGER->findImage("thirdMapPX")->getMemDC(), _rc.left, _y - 90);
+		COLORREF colorR = GetPixel(IMAGEMANAGER->findImage("thirdMapPX")->getMemDC(), _rc.right, _y - 90);
+		COLORREF colorU = GetPixel(IMAGEMANAGER->findImage("thirdMapPX")->getMemDC(), _x, _rc.top - 90);
+		COLORREF colorD = GetPixel(IMAGEMANAGER->findImage("thirdMapPX")->getMemDC(), _x, _rc.bottom - 90);
+
+		int r = GetRValue(colorL);
+		int g = GetGValue(colorL);
+		int b = GetBValue(colorL);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = PI - _knockBackAngle;
+			}
+		}
+
+		r = GetRValue(colorR);
+		g = GetGValue(colorR);
+		b = GetBValue(colorR);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = PI - _knockBackAngle;
+			}
+		}
+
+		r = GetRValue(colorU);
+		g = GetGValue(colorU);
+		b = GetBValue(colorU);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = -_knockBackAngle;
+			}
+		}
+
+		r = GetRValue(colorD);
+		g = GetGValue(colorD);
+		b = GetBValue(colorD);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = -_knockBackAngle;
+			}
+		}
+	}
+	else if (currentMap == 네번째방)
+	{
+		COLORREF colorL = GetPixel(IMAGEMANAGER->findImage("fourthMapPX")->getMemDC(), _rc.left, _y - 90);
+		COLORREF colorR = GetPixel(IMAGEMANAGER->findImage("fourthMapPX")->getMemDC(), _rc.right, _y - 90);
+		COLORREF colorU = GetPixel(IMAGEMANAGER->findImage("fourthMapPX")->getMemDC(), _x, _rc.top - 90);
+		COLORREF colorD = GetPixel(IMAGEMANAGER->findImage("fourthMapPX")->getMemDC(), _x, _rc.bottom - 90);
+
+		int r = GetRValue(colorL);
+		int g = GetGValue(colorL);
+		int b = GetBValue(colorL);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = PI - _knockBackAngle;
+			}
+		}
+
+		r = GetRValue(colorR);
+		g = GetGValue(colorR);
+		b = GetBValue(colorR);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = PI - _knockBackAngle;
+			}
+		}
+
+		r = GetRValue(colorU);
+		g = GetGValue(colorU);
+		b = GetBValue(colorU);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = -_knockBackAngle;
+			}
+		}
+
+		r = GetRValue(colorD);
+		g = GetGValue(colorD);
+		b = GetBValue(colorD);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = -_knockBackAngle;
+			}
+		}
+	}
+	else if (currentMap == 다섯번째방)
+	{
+		COLORREF colorL = GetPixel(IMAGEMANAGER->findImage("fifthMapPX")->getMemDC(), _rc.left, _y - 90);
+		COLORREF colorR = GetPixel(IMAGEMANAGER->findImage("fifthMapPX")->getMemDC(), _rc.right, _y - 90);
+		COLORREF colorU = GetPixel(IMAGEMANAGER->findImage("fifthMapPX")->getMemDC(), _x, _rc.top - 90);
+		COLORREF colorD = GetPixel(IMAGEMANAGER->findImage("fifthMapPX")->getMemDC(), _x, _rc.bottom - 90);
+
+		int r = GetRValue(colorL);
+		int g = GetGValue(colorL);
+		int b = GetBValue(colorL);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = PI - _knockBackAngle;
+			}
+		}
+
+		r = GetRValue(colorR);
+		g = GetGValue(colorR);
+		b = GetBValue(colorR);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = PI - _knockBackAngle;
+			}
+		}
+
+		r = GetRValue(colorU);
+		g = GetGValue(colorU);
+		b = GetBValue(colorU);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = -_knockBackAngle;
+			}
+		}
+
+		r = GetRValue(colorD);
+		g = GetGValue(colorD);
+		b = GetBValue(colorD);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = -_knockBackAngle;
+			}
+		}
+	}
+	else if (currentMap == 여섯번째방)
+	{
+		COLORREF colorL = GetPixel(IMAGEMANAGER->findImage("sixthMapPX")->getMemDC(), _rc.left, _y - 90);
+		COLORREF colorR = GetPixel(IMAGEMANAGER->findImage("sixthMapPX")->getMemDC(), _rc.right, _y - 90);
+		COLORREF colorU = GetPixel(IMAGEMANAGER->findImage("sixthMapPX")->getMemDC(), _x, _rc.top - 90);
+		COLORREF colorD = GetPixel(IMAGEMANAGER->findImage("sixthMapPX")->getMemDC(), _x, _rc.bottom - 90);
+
+		int r = GetRValue(colorL);
+		int g = GetGValue(colorL);
+		int b = GetBValue(colorL);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = PI - _knockBackAngle;
+			}
+		}
+
+		r = GetRValue(colorR);
+		g = GetGValue(colorR);
+		b = GetBValue(colorR);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = PI - _knockBackAngle;
+			}
+		}
+
+		r = GetRValue(colorU);
+		g = GetGValue(colorU);
+		b = GetBValue(colorU);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = -_knockBackAngle;
+			}
+		}
+
+		r = GetRValue(colorD);
+		g = GetGValue(colorD);
+		b = GetBValue(colorD);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = -_knockBackAngle;
+			}
+		}
+	}
+	else if (currentMap == 일곱번째방)
+	{
+		COLORREF colorL = GetPixel(IMAGEMANAGER->findImage("seventhMapPX")->getMemDC(), _rc.left, _y - 90);
+		COLORREF colorR = GetPixel(IMAGEMANAGER->findImage("seventhMapPX")->getMemDC(), _rc.right, _y - 90);
+		COLORREF colorU = GetPixel(IMAGEMANAGER->findImage("seventhMapPX")->getMemDC(), _x, _rc.top - 90);
+		COLORREF colorD = GetPixel(IMAGEMANAGER->findImage("seventhMapPX")->getMemDC(), _x, _rc.bottom - 90);
+
+		int r = GetRValue(colorL);
+		int g = GetGValue(colorL);
+		int b = GetBValue(colorL);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = PI - _knockBackAngle;
+			}
+		}
+
+		r = GetRValue(colorR);
+		g = GetGValue(colorR);
+		b = GetBValue(colorR);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = PI - _knockBackAngle;
+			}
+		}
+
+		r = GetRValue(colorU);
+		g = GetGValue(colorU);
+		b = GetBValue(colorU);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = -_knockBackAngle;
+			}
+		}
+
+		r = GetRValue(colorD);
+		g = GetGValue(colorD);
+		b = GetBValue(colorD);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = -_knockBackAngle;
+			}
+		}
+	}
+	else if (currentMap == 여덟번째방)
+	{
+		COLORREF colorL = GetPixel(IMAGEMANAGER->findImage("eighthMapPX")->getMemDC(), _rc.left, _y - 90);
+		COLORREF colorR = GetPixel(IMAGEMANAGER->findImage("eighthMapPX")->getMemDC(), _rc.right, _y - 90);
+		COLORREF colorU = GetPixel(IMAGEMANAGER->findImage("eighthMapPX")->getMemDC(), _x, _rc.top - 90);
+		COLORREF colorD = GetPixel(IMAGEMANAGER->findImage("eighthMapPX")->getMemDC(), _x, _rc.bottom - 90);
+
+		int r = GetRValue(colorL);
+		int g = GetGValue(colorL);
+		int b = GetBValue(colorL);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = PI - _knockBackAngle;
+			}
+		}
+
+		r = GetRValue(colorR);
+		g = GetGValue(colorR);
+		b = GetBValue(colorR);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = PI - _knockBackAngle;
+			}
+		}
+
+		r = GetRValue(colorU);
+		g = GetGValue(colorU);
+		b = GetBValue(colorU);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = -_knockBackAngle;
+			}
+		}
+
+		r = GetRValue(colorD);
+		g = GetGValue(colorD);
+		b = GetBValue(colorD);
+		if ((r == 255 && g == 0 && b == 0) || (r == 0 && g == 255 && b == 0))
+		{
+			if (_knockBackCount > 0)
+			{
+				_knockBackAngle = -_knockBackAngle;
+			}
+		}
+	}
 }
 
 

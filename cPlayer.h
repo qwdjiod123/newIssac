@@ -75,6 +75,7 @@ private:
 	bool minionShot;
 	bool playerShot; 
 	vector<int> vInventory;
+	int hitCount;
 
 
 	//==================================================================
@@ -150,11 +151,14 @@ public:
 	int GetAnimState() { return animState; }
 	void SetAnimState(int _animState) { animState = _animState; }
 
+	int getHitCount() { return hitCount; }
+	void setHitCount(int input) { hitCount = input; }
 
 	//애니메이션 겟셋 완료! 
 	RECT GetRC() { return rc; }
 
 	bullet* getBullet() { return _bullet; }
+	bullet* getBigBullet() { return _큰총알; }
 	missile* get유황() { return _유황; }
 	HRESULT init(void);
 	void release(void);

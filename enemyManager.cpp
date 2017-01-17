@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "enemyManager.h"
 #include"cPlayer.h"
+#include"cSceneManager.h"
 
 HRESULT enemyManager::init(void)
 {
@@ -11,9 +12,21 @@ HRESULT enemyManager::init(void)
 	//ÃÑ¾ËÅ¬·¡½º »ý¼º ¹× ÃÊ±âÈ­
 	_bullet = new frameBullet;
 	_bullet->init("enemyBullet", 15);
+	_bullet->setScene(_SceneManager);
 
 	_hBullet = new hoppingBullet;
 	_hBullet->init("enemyBullet", 50);
+	_hBullet->setScene(_SceneManager);
+
+	for (int i = 0; i < 10; i++)
+	{
+		monsterSet[i] = false;
+	}
+
+	monsterSet[0] = true;
+	monsterSet[2] = true;
+	monsterSet[7] = true;
+
 
 	setMinion();
 
@@ -49,6 +62,7 @@ void enemyManager::update(void)
 		}
 	}
 
+	spwnMonster();
 
 	//ÃÑ¾ËÅ¬·¡½º ¾÷µ¥ÀÌÆ®
 	_bullet->update();
@@ -100,7 +114,7 @@ void enemyManager::minionBulletFire(void)
 		{
 			float angle = getAngle((*_viMinion)->getX(), (*_viMinion)->getY(), _player->GetX(), _player->GetY());
 
-			_bullet->fire((*_viMinion)->getX()+25, (*_viMinion)->getY(),angle,300,1,1);
+			_bullet->fire((*_viMinion)->getX(), (*_viMinion)->getY(),angle,300,1,3);
 		}
 	}
 }
@@ -119,10 +133,30 @@ void enemyManager::collision()
 		RECT temp;
 		if (IntersectRect(&temp, &(*_viMinion)->getRect(), &_player->GetRC()))//¸öÅë¹ÚÄ¡±â ´çÇÑ°æ¿ì 
 		{
-			_player->SetAnimState(DAMAGE);
-			float angle = getAngle((*_viMinion)->getX(), (*_viMinion)->getY(), _player->GetX(), _player->GetY());
-			_player->SetAngle(angle);
-			_player->SetHp(_player->GetHp() - 1);
+			if (_player->getHitCount() <= 0)
+			{
+				if ((*_viMinion)->getMobType() == BOSS)
+				{
+					if ((*_viMinion)->isHit())
+					{
+						_player->SetAnimState(DAMAGE);
+						_player->setHitCount(50);
+						float angle = getAngle((*_viMinion)->getX(), (*_viMinion)->getY(), _player->GetX(), _player->GetY());
+						_player->SetAngle(angle);
+						_player->SetHp(_player->GetHp() - 1);
+					}
+				}
+				else
+				{
+					_player->SetAnimState(DAMAGE);
+					_player->setHitCount(50);
+					float angle = getAngle((*_viMinion)->getX(), (*_viMinion)->getY(), _player->GetX(), _player->GetY());
+					_player->SetAngle(angle);
+					_player->SetHp(_player->GetHp() - 1);
+				}
+			}
+			
+		
 		}
 
 		RECT colTemp;
@@ -132,12 +166,28 @@ void enemyManager::collision()
 			{
 				(*_viMinion)->setknockBackCount(5);
 				(*_viMinion)->setknockBackAngle(getAngle(_player->getBullet()->getVBulletPt()->at(i).x, _player->getBullet()->getVBulletPt()->at(i).y, (*_viMinion)->getX(), (*_viMinion)->getY()));
+				(*_viMinion)->setHP(((*_viMinion)->getHP()) - _player->getBullet()->getVBulletPt()->at(i).damage);
+				EFFECTMANAGER->addEffect("Å«ÃÑ¾ËÈ¿°ú", _player->getBullet()->getVBulletPt()->at(i).x, _player->getBullet()->getVBulletPt()->at(i).y);
 				_player->getBullet()->getVBulletPt()->erase(_player->getBullet()->getVBulletPt()->begin() + i);
-				(*_viMinion)->setHP(((*_viMinion)->getHP())-1);
 				(*_viMinion)->setHitTime(2);
 				break;
 			}
 		}
+
+		for (int i = 0; i < _player->getBigBullet()->getVBulletPt()->size(); i++)
+		{
+			if (IntersectRect(&colTemp, &(*_viMinion)->getRect(), &_player->getBigBullet()->getVBulletPt()->at(i).rc))
+			{
+				(*_viMinion)->setknockBackCount(5);
+				(*_viMinion)->setknockBackAngle(getAngle(_player->getBigBullet()->getVBulletPt()->at(i).x, _player->getBigBullet()->getVBulletPt()->at(i).y, (*_viMinion)->getX(), (*_viMinion)->getY()));
+				(*_viMinion)->setHP(((*_viMinion)->getHP()) - _player->getBigBullet()->getVBulletPt()->at(i).damage);
+				EFFECTMANAGER->addEffect("Å«ÃÑ¾ËÈ¿°ú", _player->getBigBullet()->getVBulletPt()->at(i).x, _player->getBigBullet()->getVBulletPt()->at(i).y);
+				_player->getBigBullet()->getVBulletPt()->erase(_player->getBigBullet()->getVBulletPt()->begin() + i);
+				(*_viMinion)->setHitTime(2);
+				break;
+			}
+		}
+
 	}
 }
 
@@ -146,6 +196,7 @@ void enemyManager::addEnemy(string KEY, float centerX, float centerY)
 	if (KEY == "¹ú·¹")
 	{
 		groundEnemy* temp = new groundEnemy;
+		temp->setSceneManager(_SceneManager);
 		temp->init(centerX, centerY, _player);
 		_vMinion.push_back(temp);
 	}
@@ -153,6 +204,7 @@ void enemyManager::addEnemy(string KEY, float centerX, float centerY)
 	if (KEY == "ÆÄ¸®")
 	{
 		fly* temp = new fly;
+		temp->setSceneManager(_SceneManager);
 		temp->init("fly", centerX, centerY, _player);
 		_vMinion.push_back(temp);
 	}
@@ -160,13 +212,83 @@ void enemyManager::addEnemy(string KEY, float centerX, float centerY)
 	if (KEY == "½´ÆÃ")
 	{
 		shootEnemy* temp = new shootEnemy;
+		temp->setSceneManager(_SceneManager);
 		temp->init(centerX, centerY, _player);
 		_vMinion.push_back(temp);
 	}
 	if (KEY == "º¸½º")
 	{
 		monstro* temp = new monstro;
+		temp->setSceneManager(_SceneManager);
 		temp->init(centerX, centerY, _player,_hBullet);
 		_vMinion.push_back(temp);
 	}
+}
+
+void enemyManager::spwnMonster()
+{
+	int currentMap = _SceneManager->GetCurrentMap();
+	if (_vMinion.empty())
+	{
+		if (_SceneManager->GetdoorChangeFrame()==300)
+		{
+			if (!monsterSet[currentMap])
+			{
+				if (currentMap == Ã¹¹øÂ°¹æ)
+				{
+					addEnemy("ÆÄ¸®", 100, 200);
+					addEnemy("ÆÄ¸®", 100, 500);
+					addEnemy("ÆÄ¸®", 700, 200);
+					addEnemy("ÆÄ¸®", 700, 500);
+					monsterSet[currentMap] = true;
+				}
+
+				if (currentMap == ¼¼¹øÂ°¹æ)
+				{
+					addEnemy("º¸½º", 300, 250);
+					
+					monsterSet[currentMap] = true;
+				}
+
+				if (currentMap == ³×¹øÂ°¹æ)
+				{
+					addEnemy("¹ú·¹", 100, 200);
+					addEnemy("¹ú·¹", 100, 500);
+					addEnemy("¹ú·¹", 700, 200);
+					addEnemy("¹ú·¹", 700, 500);
+
+					monsterSet[currentMap] = true;
+				}
+
+				if (currentMap == ¿©¼¸¹øÂ°¹æ)
+				{
+					addEnemy("½´ÆÃ", 100, 200);
+					addEnemy("½´ÆÃ", 100, 500);
+					addEnemy("½´ÆÃ", 700, 200);
+					addEnemy("½´ÆÃ", 700, 500);
+
+					monsterSet[currentMap] = true;
+				}
+
+				if (currentMap == ¿©´ü¹øÂ°¹æ)
+				{
+					addEnemy("ÆÄ¸®", 100, 200);
+					addEnemy("¹ú·¹", 100, 500);
+					addEnemy("½´ÆÃ", 700, 200);
+					addEnemy("½´ÆÃ", 700, 500);
+
+					monsterSet[currentMap] = true;
+				}
+			}
+		}
+	}
+
+	if (currentMap == ¿©´ü¹øÂ°¹æ)
+	{
+		if (KEYMANAGER->isOnceKeyDown(VK_F5))
+		{
+			addEnemy("ÆÄ¸®", RND->getFromIntTo(100,200), RND->getFromIntTo(200, 300));
+		}
+	}
+
 }
