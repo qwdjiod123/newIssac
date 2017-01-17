@@ -47,6 +47,10 @@ void cSceneManager::update(void)
 	isPixel = KEYMANAGER->isToggleKey('T');
 	mapChangeUpdate();
 
+	if (_player->GetDeadAlpha() <= 0)
+	{
+		SCENEMANAGER->changeScene("엔딩화면");
+	}
 }
 
 void cSceneManager::render(void)
@@ -635,8 +639,8 @@ void cSceneManager::mapChangeRender(void)
 					}
 				}
 				IMAGEMANAGER->render("doorRight", getMemDC(), 700, 260, doorChangeFrame, 0, 100, 170);
-				IMAGEMANAGER->render("doorLeft", getMemDC(), 0, 260, 300 - doorChangeFrame, 0, 100, 170);
-				IMAGEMANAGER->render("doorBottom", getMemDC(), 320, 500, 0, doorChangeFrame, 170, 100);
+				IMAGEMANAGER->render("doorKingLeft", getMemDC(), 0, 260, 300 - doorChangeFrame, 0, 100, 170);
+				IMAGEMANAGER->render("doorSCBottom", getMemDC(), 320, 530, 0, doorChangeFrame, 170, 100);
 			}
 			if (isPixel == true)
 			{
@@ -663,8 +667,8 @@ void cSceneManager::mapChangeRender(void)
 					}
 				}
 				IMAGEMANAGER->render("doorRight", getMemDC(), 700, 260, doorChangeFrame, 0, 100, 170);
-				IMAGEMANAGER->render("doorLeft", getMemDC(), 0, 260, 300 - doorChangeFrame, 0, 100, 170);
-				IMAGEMANAGER->render("doorBottom", getMemDC(), 320, 500, 0, doorChangeFrame, 170, 100);
+				IMAGEMANAGER->render("doorKingLeft", getMemDC(), 0, 260, 300 - doorChangeFrame, 0, 100, 170);
+				IMAGEMANAGER->render("doorSCBottom", getMemDC(), 320, 530, 0, doorChangeFrame, 170, 100);
 			}
 			if (isPixel == true)
 			{
@@ -692,8 +696,8 @@ void cSceneManager::mapChangeRender(void)
 					}
 				}
 				IMAGEMANAGER->render("doorRight", getMemDC(), 700, 260, doorChangeFrame, 0, 100, 170);
-				IMAGEMANAGER->render("doorLeft", getMemDC(), 0, 260, 300 - doorChangeFrame, 0, 100, 170);
-				IMAGEMANAGER->render("doorBottom", getMemDC(), 320, 500, 0, doorChangeFrame, 170, 100);
+				IMAGEMANAGER->render("doorKingLeft", getMemDC(), 0, 260, 300 - doorChangeFrame, 0, 100, 170);
+				IMAGEMANAGER->render("doorSCBottom", getMemDC(), 320, 530, 0, doorChangeFrame, 170, 100);
 			}
 			if (isPixel == true)
 			{
@@ -723,7 +727,7 @@ void cSceneManager::mapChangeRender(void)
 						doorChangeFrame = 300;
 					}
 				}
-				IMAGEMANAGER->render("doorRight", getMemDC(), 700, 260, doorChangeFrame, 0, 100, 170);
+				IMAGEMANAGER->render("doorKingRight", getMemDC(), 700, 260, doorChangeFrame, 0, 100, 170);
 			}
 			if (isPixel == true)
 			{
@@ -755,7 +759,7 @@ void cSceneManager::mapChangeRender(void)
 						doorChangeFrame = 300;
 					}
 				}
-				IMAGEMANAGER->render("doorTop", getMemDC(), 320, 100, 0, 300 - doorChangeFrame, 170, 100);
+				IMAGEMANAGER->render("doorSCTop", getMemDC(), 320, 70, 0, 300 - doorChangeFrame, 170, 100);
 			}
 			if (isPixel == true)
 			{

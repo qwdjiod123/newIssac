@@ -256,7 +256,7 @@ void loadingScene::loadingImage(void)
 
 	_loading->loadImage("mainGame", "mainGame.bmp", 800, 600);
 	_loading->loadImage("mother", "mother.bmp", 1600, 320, true, RGB(128, 128, 255));
-	_loading->loadImage("fly", "fly.bmp", 260, 130, true, RGB(128, 128, 255));
+	_loading->loadImage("flyIntro", "flyIntro.bmp", 260, 130, true, RGB(128, 128, 255));
 	_loading->loadImage("start", "start.bmp", 163, 64, true, RGB(128, 128, 255));
 	_loading->loadImage("select", "select.bmp", 150, 150, true, RGB(128, 128, 255));
 
@@ -267,6 +267,91 @@ void loadingScene::loadingImage(void)
 	_loading->loadImage("doorBottom", "doorBottom.bmp", 170, 400, true, RGB(128, 128, 255));
 	_loading->loadImage("doorLeft", "doorLeft.bmp", 400, 170, true, RGB(128, 128, 255));
 	_loading->loadImage("doorRight", "doorRight.bmp", 400, 170, true, RGB(128, 128, 255));
+	_loading->loadImage("doorSCTop", "doorSCTop.bmp", 170, 400, true, RGB(0, 0, 0));
+	_loading->loadImage("doorSCBottom", "doorSCBottom.bmp", 170, 400, true, RGB(0, 0, 0));
+	_loading->loadImage("doorKingLeft", "doorKingLeft.bmp", 400, 170, true, RGB(128, 128, 255));
+	_loading->loadImage("doorKingRight", "doorKingRight.bmp", 400, 170, true, RGB(128, 128, 255));
+
+
+	//엔딩신
+	_loading->loadImage("1", "1.bmp", 1600, 1200);
+	_loading->loadImage("2", "2.bmp", 1600, 1200);
+	_loading->loadImage("3", "3.bmp", 1600, 1200);
+	_loading->loadImage("4", "4.bmp", 1600, 1200);
+	_loading->loadImage("5", "5.bmp", 1600, 1200);
+	_loading->loadImage("6", "6.bmp", 1600, 1200);
+	_loading->loadImage("7", "7.bmp", 1600, 1200);
+	_loading->loadImage("8", "8.bmp", 1600, 1200);
+	_loading->loadImage("9", "9.bmp", 1600, 1200);
+	_loading->loadImage("10", "10.bmp", 1600, 1200);
+	_loading->loadImage("11", "11.bmp", 1600, 1200);
+	_loading->loadImage("12", "12.bmp", 1600, 1200);
+	_loading->loadImage("13", "13.bmp", 1600, 1200);
+	_loading->loadImage("14", "14.bmp", 1600, 1200);
+	_loading->loadImage("15", "15.bmp", 1600, 1200);
+	_loading->loadImage("16", "16.bmp", 1600, 1200);
+	_loading->loadImage("17", "17.bmp", 1600, 1200);
+	_loading->loadImage("18", "18.bmp", 1600, 1200);
+	_loading->loadImage("19", "19.bmp", 1600, 1200);
+	_loading->loadImage("20", "20.bmp", 1600, 1200);
+	_loading->loadImage("21", "21.bmp", 1600, 1200);
+	_loading->loadImage("22", "22.bmp", 1600, 1200);
+	_loading->loadImage("23", "23.bmp", 1600, 1200);
+	_loading->loadImage("24", "24.bmp", 1600, 1200);
+	_loading->loadImage("25", "25.bmp", 1600, 1200);
+	_loading->loadImage("26", "26.bmp", 1600, 1200);
+	_loading->loadImage("27", "27.bmp", 1600, 1200);
+	_loading->loadImage("28", "28.bmp", 1600, 1200);
+	_loading->loadImage("29", "29.bmp", 1600, 1200);
+	_loading->loadImage("30", "30.bmp", 1600, 1200);
+	_loading->loadImage("31", "31.bmp", 1600, 1200);
+	_loading->loadImage("32", "32.bmp", 1600, 1200);
+	_loading->loadImage("33", "33.bmp", 1600, 1200);
+	_loading->loadImage("34", "34.bmp", 1600, 1200);
+	_loading->loadImage("35", "35.bmp", 1600, 1200);
+	_loading->loadImage("36", "36.bmp", 1600, 1200);
+	_loading->loadImage("37", "37.bmp", 1600, 1200);
+	_loading->loadImage("38", "38.bmp", 1600, 1200);
+	_loading->loadImage("39", "39.bmp", 1600, 1200);
+	_loading->loadImage("40", "40.bmp", 1600, 1200);
+	_loading->loadImage("41", "41.bmp", 1600, 1200);
+	_loading->loadImage("42", "42.bmp", 1600, 1200);
+	_loading->loadImage("43", "43.bmp", 1600, 1200);
+	_loading->loadImage("44", "44.bmp", 1600, 1200);
+	_loading->loadImage("45", "45.bmp", 1600, 1200);
+	_loading->loadImage("46", "46.bmp", 1600, 1200);
+	_loading->loadImage("47", "47.bmp", 1600, 1200);
+	_loading->loadImage("48", "48.bmp", 1600, 1200);
+	_loading->loadImage("49", "49.bmp", 1600, 1200);
+	_loading->loadImage("50", "50.bmp", 1600, 1200);
+	_loading->loadImage("51", "51.bmp", 1600, 1200);
+	_loading->loadImage("52", "52.bmp", 1600, 1200);
+	_loading->loadImage("53", "53.bmp", 1600, 1200);
+	_loading->loadImage("54", "54.bmp", 1600, 1200);
+	_loading->loadImage("55", "55.bmp", 1600, 1200);
+	_loading->loadImage("56", "56.bmp", 1600, 1200);
+	_loading->loadImage("57", "57.bmp", 1600, 1200);
+	_loading->loadImage("58", "58.bmp", 1600, 1200);
+	_loading->loadImage("59", "59.bmp", 1600, 1200);
+	_loading->loadImage("60", "60.bmp", 1600, 1200);
+	_loading->loadImage("61", "61.bmp", 1600, 1200);
+	_loading->loadImage("62", "62.bmp", 1600, 1200);
+	_loading->loadImage("63", "63.bmp", 1600, 1200);
+	_loading->loadImage("64", "64.bmp", 1600, 1200);
+	_loading->loadImage("65", "65.bmp", 1600, 1200);
+	_loading->loadImage("66", "66.bmp", 1600, 1200);
+	_loading->loadImage("67", "67.bmp", 1600, 1200);
+	_loading->loadImage("68", "68.bmp", 1600, 1200);
+	_loading->loadImage("69", "69.bmp", 1600, 1200);
+	_loading->loadImage("70", "70.bmp", 1600, 1200);
+	_loading->loadImage("71", "71.bmp", 1600, 1200);
+	_loading->loadImage("72", "72.bmp", 1600, 1200);
+	_loading->loadImage("73", "73.bmp", 1600, 1200);
+	_loading->loadImage("74", "74.bmp", 1600, 1200);
+	_loading->loadImage("75", "75.bmp", 1600, 1200);
+	_loading->loadImage("76", "76.bmp", 1600, 1200);
+	_loading->loadImage("77", "77.bmp", 1600, 1200);
+	_loading->loadImage("78", "78.bmp", 1600, 1200);
 }
 //로딩사운드 함수(이곳에 사운드를 전부 넣어라)
 void loadingScene::loadingSound(void)

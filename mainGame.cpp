@@ -17,7 +17,7 @@ HRESULT mainGame::init(void)
 	SCENEMANAGER->addScene("로딩화면", new loadingScene);
 	SCENEMANAGER->addScene("인트로화면", new cIntro);
 	SCENEMANAGER->addScene("게임화면", new cSceneGame);
-	
+	SCENEMANAGER->addScene("엔딩화면", new cEnding);
 
 	/*현재씬 설정*/
 	SCENEMANAGER->changeScene("로딩화면");

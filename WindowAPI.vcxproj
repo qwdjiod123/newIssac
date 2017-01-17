@@ -143,6 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="bullet.h" />
+    <ClInclude Include="cEnding.h" />
     <ClInclude Include="cIntro.h" />
     <ClInclude Include="cItemManager.h" />
     <ClInclude Include="commonMacroFunction.h" />
@@ -180,6 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bullet.cpp" />
+    <ClCompile Include="cEnding.cpp" />
     <ClCompile Include="cIntro.cpp" />
     <ClCompile Include="cItemManager.cpp" />
     <ClCompile Include="cPlayer.cpp" />

@@ -182,6 +182,9 @@
     <ClInclude Include="cSound.h">
       <Filter>MainGame\아이작\사운드</Filter>
     </ClInclude>
+    <ClInclude Include="cEnding.h">
+      <Filter>MainGame\아이작\맵매니져</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainGame.cpp">
@@ -282,6 +285,9 @@
     </ClCompile>
     <ClCompile Include="cSound.cpp">
       <Filter>MainGame\아이작\사운드</Filter>
+    </ClCompile>
+    <ClCompile Include="cEnding.cpp">
+      <Filter>MainGame\아이작\맵매니져</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

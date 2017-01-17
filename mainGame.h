@@ -7,6 +7,7 @@
 #include "loadingScene.h"
 #include "cIntro.h"
 #include "cSceneGame.h"
+#include "cEnding.h"
 
 class mainGame : public gameNode
 {

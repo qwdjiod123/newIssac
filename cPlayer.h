@@ -154,6 +154,7 @@ public:
 	int getHitCount() { return hitCount; }
 	void setHitCount(int input) { hitCount = input; }
 
+	int GetDeadAlpha() { return deadAlpha; }
 	//애니메이션 겟셋 완료! 
 	RECT GetRC() { return rc; }
 
