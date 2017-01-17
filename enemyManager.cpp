@@ -83,7 +83,7 @@ void enemyManager::setMinion(void)
 	
 	//addEnemy("파리", 600, 300);
 
-	addEnemy("보스", 100, 400);
+	//addEnemy("보스", 100, 400);
 
 	//addEnemy("벌레", 100, 400);
 

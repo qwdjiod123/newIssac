@@ -50,25 +50,34 @@ void cItemManager::update(void)
 	//==================================================================
 
 	ItemSetting();
-	if (ItemSetOnce[첫번째방]==false)
-	{
-		StoreSetting(첫번째방);
-	}
-	
+
 	ItemUpdate(정보방);
 	ItemUpdate(첫번째방);
+	ItemUpdate(두번째방);
+	ItemUpdate(네번째방);
+	ItemUpdate(다섯번째방);
+	ItemUpdate(여섯번째방);
+	ItemUpdate(일곱번째방);
 
 	NewItemUpdate(정보방);
 	NewItemUpdate(첫번째방);
+	NewItemUpdate(두번째방);
+	NewItemUpdate(네번째방);
+	NewItemUpdate(다섯번째방);
+	NewItemUpdate(여섯번째방);
+	NewItemUpdate(일곱번째방);
+
+
 
 	StoreUpdate();
 	MissileControl();
 	Collision();
+
 	ItemRectCollision(정보방);
 	//==================================================================
 	//		## 모래시계 전용로직 ##
 	//==================================================================
-	if (IsTime==true)
+	if (IsTime == true)
 	{
 		int static nCount = 0;
 		nCount++;
@@ -84,7 +93,7 @@ void cItemManager::update(void)
 			nCount = 0;
 			IsTime = false;
 		}
-	}	
+	}
 
 	//테스트
 	if (KEYMANAGER->isOnceKeyDown(VK_F1))
@@ -99,11 +108,25 @@ void cItemManager::render(void)
 	//		## 아이템 렌더 ##
 	//==================================================================
 
+
+
+
 	ItemRender(정보방);
 	ItemRender(첫번째방);
+	ItemRender(두번째방);
+	ItemRender(네번째방);
+	ItemRender(다섯번째방);
+	ItemRender(여섯번째방);
+	ItemRender(일곱번째방);
 
 	NewItemRender(정보방);
 	NewItemRender(첫번째방);
+	NewItemRender(두번째방);
+	NewItemRender(네번째방);
+	NewItemRender(다섯번째방);
+	NewItemRender(여섯번째방);
+	NewItemRender(일곱번째방);
+
 
 	StoreRener();
 
@@ -111,7 +134,7 @@ void cItemManager::render(void)
 
 	//테스트입니다.
 	wsprintf(buffer, TEXT("HP:%d"), _player->GetHp());
-	TextOut(getMemDC(), 200, 200, buffer, lstrlen(buffer));	
+	TextOut(getMemDC(), 200, 200, buffer, lstrlen(buffer));
 	//RectangleMake(getMemDC(), mapRC.rc);
 
 }
@@ -121,7 +144,7 @@ void cItemManager::ItemSetting()
 	// 맵에아이템 셋팅
 	if (_sm->GetCurrentMap() == 정보방&&ItemSetOnce[정보방] == false)
 	{
-		ItemMapSet(100, 400, 폭탄, 정보방);
+		/*ItemMapSet(100, 400, 폭탄, 정보방);
 		ItemMapSet(200, 400, 열쇠, 정보방);
 		ItemMapSet(300, 400, 동전1, 정보방);
 		ItemMapSet(400, 400, 동전99, 정보방);
@@ -133,19 +156,54 @@ void cItemManager::ItemSetting()
 		ItemMapSet(300, 200, 박사의조정기, 정보방);
 		ItemMapSet(400, 200, 모래시계, 정보방);
 		ItemMapSet(500, 200, 카드, 정보방);
-		ItemMapSet(600, 200, 유황, 정보방);
+		ItemMapSet(600, 200, 유황, 정보방);*/
 
 		ItemSetOnce[정보방] = true;
 	}
 
-	if (_sm->GetCurrentMap() == 첫번째방&&ItemSetOnce[첫번째방] == false)
+	if (_sm->GetCurrentMap() == 두번째방&&ItemSetOnce[두번째방] == false)
 	{
-		/*ItemMapSet(100, 100, 열쇠, 첫번째방);
-		ItemMapSet(300, 100, 구렁텅이의군주, 첫번째방);
-		ItemMapSet(500, 100, 보물상자, 첫번째방);
-		ItemMapSet(100, 300, 카드, 첫번째방);
-		ItemMapSet(100, 500, 열쇠, 첫번째방);*/
-		ItemSetOnce[첫번째방] = true;
+		StoreSetting(두번째방);
+		ItemMapSet(400, 350, 유황, 두번째방);
+		ItemMapSet(400, 390, 돌맹이, 두번째방);
+		ItemSetOnce[두번째방] = true;
+	}
+	if (_sm->GetCurrentMap() == 네번째방&&ItemSetOnce[네번째방] == false)
+	{
+		ItemMapSet(300, 350, 빨간하트, 네번째방);
+		ItemMapSet(500, 350, 폭탄, 네번째방);
+		ItemSetOnce[네번째방] = true;
+	}
+	if (_sm->GetCurrentMap() == 다섯번째방&&ItemSetOnce[다섯번째방] == false)
+	{
+		ItemMapSet(100, 200, 열쇠, 다섯번째방);
+		ItemMapSet(100, 500, 보물상자, 다섯번째방);
+		ItemMapSet(400, 300, 썩은고기, 다섯번째방);
+		ItemMapSet(395, 340, 돌맹이, 다섯번째방);
+		ItemSetOnce[다섯번째방] = true;
+	}
+	if (_sm->GetCurrentMap() == 여섯번째방&&ItemSetOnce[여섯번째방] == false)
+	{
+		ItemMapSet(480, 350, 동전1, 여섯번째방);
+		ItemMapSet(430, 350, 동전1, 여섯번째방);
+		ItemMapSet(380, 350, 동전1, 여섯번째방);
+		ItemMapSet(330, 350, 동전1, 여섯번째방);
+		ItemSetOnce[여섯번째방] = true;
+	}
+	if (_sm->GetCurrentMap() == 일곱번째방&&ItemSetOnce[일곱번째방] == false)
+	{
+		ItemMapSet(300, 400, 모래시계, 일곱번째방);
+		ItemMapSet(500, 400, 박사의조정기, 일곱번째방);
+		ItemMapSet(300, 440, 돌맹이, 일곱번째방);
+		ItemMapSet(500, 440, 돌맹이, 일곱번째방);
+
+		ItemMapSet(250, 150, 상점캐릭터, 일곱번째방);
+		ItemMapSet(300, 200, 동전99, 일곱번째방);
+		ItemMapSet(400, 200, 카드, 일곱번째방);
+		ItemMapSet(400, 240, 상점2, 일곱번째방);
+		ItemMapSet(500, 200, 구렁텅이의군주, 일곱번째방);
+		ItemMapSet(500, 240, 상점3, 일곱번째방);
+		ItemSetOnce[일곱번째방] = true;
 	}
 }
 
@@ -211,6 +269,22 @@ void cItemManager::ItemMapSet(float _x, float _y, int _state, int _currentmap)
 	{
 		item.RectSize = 박사조정기렉트;
 	}
+	if (_state == 돌맹이)
+	{
+		item.RectSize = 50;
+	}
+	if (_state == 상점캐릭터)
+	{
+		item.RectSize = 100;
+	}
+	if (_state == 상점2)
+	{
+		item.RectSize = 40;
+	}
+	if (_state == 상점3)
+	{
+		item.RectSize = 40;
+	}
 
 	item.rc = RectMakeCenter(item.x, item.y, item.RectSize, item.RectSize);
 	vItem.push_back(item);
@@ -237,7 +311,7 @@ void cItemManager::ItemUse(int _item)
 	}
 	if (_item == 모래시계)
 	{
-		IsTime = true;		
+		IsTime = true;
 	}
 	if (_item == 카드)
 	{
@@ -358,8 +432,8 @@ void cItemManager::ItemUpdate(int _currentmap)
 				/////////////////////////////////////////////////////////////////충돌
 				if (IntersectRect(&temp, &_player->GetRC(), &vItem[i].rc))
 				{
-					if (_player->GetKey()>0&&vItem[i].state == 보물상자)
-					{						
+					if (_player->GetKey()>0 && vItem[i].state == 보물상자)
+					{
 						IsChange = true;
 						int static nCount = 0;
 						nCount++;
@@ -368,11 +442,11 @@ void cItemManager::ItemUpdate(int _currentmap)
 							nCount = 0;
 							ItemMake(vItem[i].x, vItem[i].y, 빨간하트반, vItem[i].currentmap, true);
 							_player->SetKey(_player->GetKey() - 1);
-							DeleteItem(i);							
+							DeleteItem(i);
 						}
 						break;
 					}
-					if (_player->GetKey() <= 0&&vItem[i].state == 보물상자)
+					if (_player->GetKey() <= 0 && vItem[i].state == 보물상자)
 					{
 						float distance = getDistance(vItem[i].x, vItem[i].y, _player->GetX(), _player->GetY());
 						if (distance<75)
@@ -471,12 +545,16 @@ void cItemManager::ItemUpdate(int _currentmap)
 					}
 					if (vItem[i].state == 카드)
 					{
-						_player->SetRange(500);
-						_player->SetBulletSpeed(5);
-						_player->SetAnimState(CARD);
-						_player->addInVentory(카드);
-						DeleteItem(i);
-						break;
+						if (_player->GetMoney() >= 2)
+						{
+							_player->SetMoney(_player->GetMoney() - 2);
+							_player->SetRange(500);
+							_player->SetBulletSpeed(5);
+							_player->SetAnimState(CARD);
+							_player->addInVentory(카드);
+							DeleteItem(i);
+							break;
+						}
 					}
 					if (vItem[i].state == 유황)
 					{
@@ -488,11 +566,16 @@ void cItemManager::ItemUpdate(int _currentmap)
 					}
 					if (vItem[i].state == 구렁텅이의군주)
 					{
-						_player->SetAnimState(ETC);
-						_player->addInVentory(구렁텅이의군주);
-						_player->SetIsFly(true);
-						DeleteItem(i);
-						break;
+						if (_player->GetMoney() >= 7)
+						{
+							_player->SetMoney(_player->GetMoney() - 7);
+							_player->SetAnimState(ETC);
+							_player->addInVentory(구렁텅이의군주);
+							_player->SetIsFly(true);
+							DeleteItem(i);
+							break;
+						}
+
 					}
 					if (vItem[i].state == 박사의조정기&&IsChange == false)
 					{
@@ -502,7 +585,7 @@ void cItemManager::ItemUpdate(int _currentmap)
 						}
 						else
 						{
-							ItemMake(vItem[i].x, vItem[i].y, 모래시계, _currentmap, false);
+							ItemMake(vItem[i].x, 400, 모래시계, _currentmap, false);
 						}
 						IsChange = true;
 						_player->SetSpace(박사의조정기);
@@ -518,7 +601,7 @@ void cItemManager::ItemUpdate(int _currentmap)
 						}
 						else
 						{
-							ItemMake(vItem[i].x, vItem[i].y, 박사의조정기, _currentmap, false);
+							ItemMake(vItem[i].x, 400, 박사의조정기, _currentmap, false);
 						}
 						IsChange = true;
 						_player->SetSpace(모래시계);
@@ -529,14 +612,14 @@ void cItemManager::ItemUpdate(int _currentmap)
 				}
 
 				/////////////////////////////////////////////////////////////////위아래
-				if (vItem[i].state==썩은고기|| vItem[i].state == 유황|| vItem[i].state == 구렁텅이의군주|| vItem[i].state == 박사의조정기|| vItem[i].state == 모래시계)
+				if (vItem[i].state == 썩은고기 || vItem[i].state == 유황 || vItem[i].state == 구렁텅이의군주 || vItem[i].state == 박사의조정기 || vItem[i].state == 모래시계)
 				{
 					if (vItem[i].gravity>3.8f)
 					{
 						vItem[i].gravity = 0.0f;
 					}
-					vItem[i].gravity+=0.1f;
-					vItem[i].y += -sinf(PI / 2)*2 + vItem[i].gravity;	
+					vItem[i].gravity += 0.1f;
+					vItem[i].y += -sinf(PI / 2) * 2 + vItem[i].gravity;
 					vItem[i].rc = RectMakeCenter(vItem[i].x, vItem[i].y, vItem[i].RectSize, vItem[i].RectSize);
 				}
 			}
@@ -594,7 +677,7 @@ void cItemManager::NewItemUpdate(int _currentmap)
 					}
 					if (vNewItem[i].state == 빨간하트&&IsChange == false)
 					{
-						if (_player->GetHp()==_player->GetmaxHp())
+						if (_player->GetHp() == _player->GetmaxHp())
 						{
 							float distance = getDistance(vNewItem[i].x, vNewItem[i].y, _player->GetX(), _player->GetY());
 							if (distance<75)
@@ -604,7 +687,7 @@ void cItemManager::NewItemUpdate(int _currentmap)
 							}
 							break;
 						}
-						if (_player->GetHp() + 2<=_player->GetmaxHp())
+						if (_player->GetHp() + 2 <= _player->GetmaxHp())
 						{
 							_player->SetHp(_player->GetHp() + 2);
 							DeleteNewItem(i);
@@ -637,7 +720,7 @@ void cItemManager::NewItemUpdate(int _currentmap)
 						}
 						else
 						{
-							ItemMake(vNewItem[i].x, 200, 모래시계, _currentmap, false);
+							ItemMake(vNewItem[i].x, 400, 모래시계, _currentmap, false);
 						}
 						IsChange = true;
 						_player->SetSpace(박사의조정기);
@@ -653,7 +736,7 @@ void cItemManager::NewItemUpdate(int _currentmap)
 						}
 						else
 						{
-							ItemMake(vNewItem[i].x, 200, 박사의조정기, _currentmap, false);
+							ItemMake(vNewItem[i].x, 400, 박사의조정기, _currentmap, false);
 						}
 						IsChange = true;
 						_player->SetSpace(모래시계);
@@ -704,13 +787,19 @@ void cItemManager::NewItemUpdate(int _currentmap)
 
 void cItemManager::ItemRender(int _currentmap)
 {
-	SetTextColor(getMemDC(), RGB(0, 0, 0));
+	//SetTextColor(getMemDC(), RGB(0, 0, 0));
 	if (_sm->GetCurrentMap() == _currentmap)
 	{
 		for (int i = 0; i < vItem.size(); i++)
 		{
 			if (vItem[i].currentmap == _currentmap)
 			{
+				if (vItem[i].state == 돌맹이)
+				{
+					//TextOut(getMemDC(), vItem[i].rc.left, vItem[i].rc.top, TEXT("돌맹이"), lstrlen(TEXT("돌맹이")));
+					IMAGEMANAGER->render("돌맹이", getMemDC(), vItem[i].rc.left, vItem[i].rc.top, 0, 0, 50, 40);
+
+				}
 				if (vItem[i].state == 열쇠)
 				{
 					if (AnimCount %열쇠카운트 == 0)
@@ -811,6 +900,20 @@ void cItemManager::ItemRender(int _currentmap)
 						IMAGEMANAGER->render("보물상자2", getMemDC(), vItem[i].rc.left, vItem[i].rc.top, 0, 0, 50, 50);
 					}
 				}
+				if (vItem[i].state == 상점캐릭터)
+				{
+					IMAGEMANAGER->render("상점캐릭터", getMemDC(), vItem[i].rc.left, vItem[i].rc.top, 0, 0, 50, 100);
+				}
+				if (vItem[i].state == 상점2)
+				{
+					IMAGEMANAGER->render("상점2", getMemDC(), vItem[i].rc.left, vItem[i].rc.top, 0, 0, 40, 40);
+				}
+				if (vItem[i].state == 상점3)
+				{
+					IMAGEMANAGER->render("상점3", getMemDC(), vItem[i].rc.left, vItem[i].rc.top, 0, 0, 40, 40);
+				}
+
+
 				//RectangleMake(getMemDC(), vItem[i].rc);
 			}
 		}
@@ -837,7 +940,7 @@ void cItemManager::NewItemRender(int _currentmap)
 					}
 					//TextOut(getMemDC(), vNewItem[i].rc.left, vNewItem[i].rc.top, TEXT("열쇠"), lstrlen(TEXT("열쇠")));
 					//RectangleMake(getMemDC(), vNewItem[i].rc);
-					IMAGEMANAGER->frameRender("열쇠", getMemDC(), vNewItem[i].rc.left, vNewItem[i].rc.top, vNewItem[i].AnimX, IMAGEMANAGER->findImage("열쇠")->getFrameY());					
+					IMAGEMANAGER->frameRender("열쇠", getMemDC(), vNewItem[i].rc.left, vNewItem[i].rc.top, vNewItem[i].AnimX, IMAGEMANAGER->findImage("열쇠")->getFrameY());
 				}
 				if (vNewItem[i].state == 폭탄&&vNewItem[i].IsBomb == false)
 				{
@@ -852,28 +955,28 @@ void cItemManager::NewItemRender(int _currentmap)
 						{
 							vNewItem[i].AnimX++;
 							if (vNewItem[i].AnimX >= 2)
-							{								
+							{
 								vNewItem[i].AnimX = 0;
 							}
 						}
 						IMAGEMANAGER->frameRender("폭탄2", getMemDC(), vNewItem[i].x, vNewItem[i].y, vNewItem[i].AnimX, 0);
 					}
 					if (100<vNewItem[i].contdown&& vNewItem[i].contdown<130) // 폭발 20초동안
-					{						
+					{
 						if (AnimCount % 1 == 0)
 						{
 							vNewItem[i].AnimX++;
 							if (vNewItem[i].AnimX >= 22)
-							{								
-								vNewItem[i].AnimX = 22;									
+							{
+								vNewItem[i].AnimX = 22;
 							}
-						}						
+						}
 						//RectangleMake(getMemDC(), vNewItem[i].rc);
-						IMAGEMANAGER->frameRender("폭탄3", getMemDC(), vNewItem[i].rc.left - 30, vNewItem[i].rc.top - 50, vNewItem[i].AnimX, 0);						
+						IMAGEMANAGER->frameRender("폭탄3", getMemDC(), vNewItem[i].rc.left - 30, vNewItem[i].rc.top - 50, vNewItem[i].AnimX, 0);
 					}
 					if (vNewItem[i].contdown>130)
-					{						
-					}					
+					{
+					}
 				}
 				if (vNewItem[i].state == 빨간하트반)
 				{
@@ -933,29 +1036,29 @@ void cItemManager::Collision()
 	{
 		if (vNewItem[i].state == 폭탄&&vNewItem[i].IsBomb == true)
 		{
-		    for (int p = 0; p < _enemy->getVMinion().size(); p++)
-		    {
-			
-				if (IntersectRect(&temp, &vNewItem[i].rc,&_enemy->getVMinion()[p]->getRect()))
+			for (int p = 0; p < _enemy->getVMinion().size(); p++)
+			{
+
+				if (IntersectRect(&temp, &vNewItem[i].rc, &_enemy->getVMinion()[p]->getRect()))
 				{
 					_enemy->getVMinion()[p]->setHP(0);
 					break;
 				}
-				
-			}			
+
+			}
 		}
-	}	
+	}
 
 	//박사의조정기와 적들충돌
-	if (missileBomb.IsBomb==true)
+	if (missileBomb.IsBomb == true)
 	{
 		for (int p = 0; p < _enemy->getVMinion().size(); p++)
-		{			
-				if (IntersectRect(&temp, &missileBomb.rcBomb, &_enemy->getVMinion()[p]->getRect()))
-				{
-					_enemy->getVMinion()[p]->setHP(0);
-					break;
-				}			
+		{
+			if (IntersectRect(&temp, &missileBomb.rcBomb, &_enemy->getVMinion()[p]->getRect()))
+			{
+				_enemy->getVMinion()[p]->setHP(0);
+				break;
+			}
 		}
 	}
 
@@ -963,18 +1066,18 @@ void cItemManager::Collision()
 	for (int i = 0; i < vNewItem.size(); i++)
 	{
 		if (vNewItem[i].state == 폭탄&&vNewItem[i].IsBomb == true)
-		{						
+		{
 			if (IntersectRect(&temp, &vNewItem[i].rc, &store.rc))
 			{
 				store.IsLive = false;
 				break;
 			}
-			if (IntersectRect(&temp, &vNewItem[i].rc, &_player->GetRC())&& IsPlayerDamaged==false)
+			if (IntersectRect(&temp, &vNewItem[i].rc, &_player->GetRC()) && IsPlayerDamaged == false)
 			{
-				_player->SetHp(_player->GetHp()-2);
-				_player->SetAngle(getAngle(vNewItem[i].x, vNewItem[i].y, _player->GetX(), _player->GetY()));				
+				_player->SetHp(_player->GetHp() - 2);
+				_player->SetAngle(getAngle(vNewItem[i].x, vNewItem[i].y, _player->GetX(), _player->GetY()));
 				_player->SetAnimState(DAMAGE);
-				IsPlayerDamaged = true;	
+				IsPlayerDamaged = true;
 				break;
 			}
 		}
@@ -989,15 +1092,15 @@ void cItemManager::Collision()
 			{
 				if (IntersectRect(&temp, &vItem[p].rc, &vNewItem[i].rc))
 				{
-					vItem[p].angle = getAngle(vNewItem[i].x, vNewItem[i].y,vItem[p].x, vItem[p].y);
+					vItem[p].angle = getAngle(vNewItem[i].x, vNewItem[i].y, vItem[p].x, vItem[p].y);
 					vItem[p].moveSpeed = ITEMMOVETIME;
 					break;
 				}
 			}
 		}
-	} 
+	}
 
-	  //폭탄과 뉴아이템 충돌할때 밀려라
+	//폭탄과 뉴아이템 충돌할때 밀려라
 	for (int i = 0; i < vNewItem.size(); i++)
 	{
 		if (vNewItem[i].state == 폭탄&&vNewItem[i].IsBomb == true)
@@ -1012,77 +1115,80 @@ void cItemManager::Collision()
 				}
 			}
 		}
-	} 
+	}
 }
 
 void cItemManager::ItemRectCollision(int _currentmap)
 {
 	//화면 기본아이템들 넘어가지마세요
-	
-	
-		for (int i = 0; i < vItem.size(); i++)
+
+
+	for (int i = 0; i < vItem.size(); i++)
+	{
+		if (vItem[i].state == 상점캐릭터)
 		{
-			
-				if (vItem[i].rc.bottom>mapRC.rc.bottom)
-				{
-					vItem[i].angle = getAngle(vItem[i].x, vItem[i].y, mapRC.x, mapRC.y);
-					vItem[i].moveSpeed = ITEMMOVETIME;
-					break;
-				}
-				if (vItem[i].rc.left<mapRC.rc.left)
-				{
-					vItem[i].angle = getAngle(vItem[i].x, vItem[i].y, mapRC.x, mapRC.y);
-					vItem[i].moveSpeed = ITEMMOVETIME;
-					break;
-				}
-				if (vItem[i].rc.top<mapRC.rc.top)
-				{
-					vItem[i].angle = getAngle(vItem[i].x, vItem[i].y, mapRC.x, mapRC.y);
-					vItem[i].moveSpeed = ITEMMOVETIME;
-					break;
-				}
-				if (vItem[i].rc.right>mapRC.rc.right)
-				{
-					vItem[i].angle = getAngle(vItem[i].x, vItem[i].y, mapRC.x, mapRC.y);
-					vItem[i].moveSpeed = ITEMMOVETIME;
-					break;
-				}
-			
+			continue;
 		}
-	
-		
-	
+		if (vItem[i].rc.bottom>mapRC.rc.bottom)
+		{
+			vItem[i].angle = getAngle(vItem[i].x, vItem[i].y, mapRC.x, mapRC.y);
+			vItem[i].moveSpeed = ITEMMOVETIME;
+			break;
+		}
+		if (vItem[i].rc.left<mapRC.rc.left)
+		{
+			vItem[i].angle = getAngle(vItem[i].x, vItem[i].y, mapRC.x, mapRC.y);
+			vItem[i].moveSpeed = ITEMMOVETIME;
+			break;
+		}
+		if (vItem[i].rc.top<mapRC.rc.top)
+		{
+			vItem[i].angle = getAngle(vItem[i].x, vItem[i].y, mapRC.x, mapRC.y);
+			vItem[i].moveSpeed = ITEMMOVETIME;
+			break;
+		}
+		if (vItem[i].rc.right>mapRC.rc.right)
+		{
+			vItem[i].angle = getAngle(vItem[i].x, vItem[i].y, mapRC.x, mapRC.y);
+			vItem[i].moveSpeed = ITEMMOVETIME;
+			break;
+		}
+
+	}
+
+
+
 	//화면 뉴아이템들 넘어가지마세요
-	
-		for (int i = 0; i < vNewItem.size(); i++)
-		{			
-				if (vNewItem[i].rc.bottom>mapRC.rc.bottom)
-				{
-					vNewItem[i].angle = getAngle(vNewItem[i].x, vNewItem[i].y, mapRC.x, mapRC.y);
-					vNewItem[i].moveSpeed = ITEMMOVETIME;
-					break;
-				}
-				if (vNewItem[i].rc.left<mapRC.rc.left)
-				{
-					vNewItem[i].angle = getAngle(vNewItem[i].x, vNewItem[i].y, mapRC.x, mapRC.y);
-					vNewItem[i].moveSpeed = ITEMMOVETIME;
-					break;
-				}
-				if (vNewItem[i].rc.top<mapRC.rc.top)
-				{
-					vNewItem[i].angle = getAngle(vNewItem[i].x, vNewItem[i].y, mapRC.x, mapRC.y);
-					vNewItem[i].moveSpeed = ITEMMOVETIME;
-					break;
-				}
-				if (vNewItem[i].rc.right>mapRC.rc.right)
-				{
-					vNewItem[i].angle = getAngle(vNewItem[i].x, vNewItem[i].y, mapRC.x, mapRC.y);
-					vNewItem[i].moveSpeed = ITEMMOVETIME;
-					break;
-				}			
+
+	for (int i = 0; i < vNewItem.size(); i++)
+	{
+		if (vNewItem[i].rc.bottom>mapRC.rc.bottom)
+		{
+			vNewItem[i].angle = getAngle(vNewItem[i].x, vNewItem[i].y, mapRC.x, mapRC.y);
+			vNewItem[i].moveSpeed = ITEMMOVETIME;
+			break;
 		}
-	
-		
+		if (vNewItem[i].rc.left<mapRC.rc.left)
+		{
+			vNewItem[i].angle = getAngle(vNewItem[i].x, vNewItem[i].y, mapRC.x, mapRC.y);
+			vNewItem[i].moveSpeed = ITEMMOVETIME;
+			break;
+		}
+		if (vNewItem[i].rc.top<mapRC.rc.top)
+		{
+			vNewItem[i].angle = getAngle(vNewItem[i].x, vNewItem[i].y, mapRC.x, mapRC.y);
+			vNewItem[i].moveSpeed = ITEMMOVETIME;
+			break;
+		}
+		if (vNewItem[i].rc.right>mapRC.rc.right)
+		{
+			vNewItem[i].angle = getAngle(vNewItem[i].x, vNewItem[i].y, mapRC.x, mapRC.y);
+			vNewItem[i].moveSpeed = ITEMMOVETIME;
+			break;
+		}
+	}
+
+
 }
 
 void cItemManager::MissileControl()
@@ -1112,7 +1218,7 @@ void cItemManager::MissileControl()
 		}
 		if (150<missileBomb.nCount&& missileBomb.nCount<200)
 		{
-			
+
 		}
 		if (200<missileBomb.nCount&& missileBomb.nCount<230)
 		{
@@ -1147,7 +1253,7 @@ void cItemManager::MissileRender()
 			{
 				missileBomb.AnimY = 0;
 			}
-			IMAGEMANAGER->render("박사의조정기3", getMemDC(), missileBomb.rc.left, missileBomb.rc.top - missileBomb.AnimY, 0, 0, 100, 200);			
+			IMAGEMANAGER->render("박사의조정기3", getMemDC(), missileBomb.rc.left, missileBomb.rc.top - missileBomb.AnimY, 0, 0, 100, 200);
 		}
 		if (200<missileBomb.nCount&& missileBomb.nCount<230)
 		{
@@ -1167,8 +1273,8 @@ void cItemManager::MissileRender()
 
 void cItemManager::StoreSetting(int _currentmap)
 {
-	store.x = WINSIZEX / 2;
-	store.y = WINSIZEY / 2;
+	store.x = 200;
+	store.y = 250;
 	store.StartX = store.x;
 	store.StartY = store.y;
 	store.angle = PI;
@@ -1181,8 +1287,8 @@ void cItemManager::StoreSetting(int _currentmap)
 
 void cItemManager::StoreUpdate()
 {
-	if (store.currentmap == _sm->GetCurrentMap() && store.IsLive==true) 
-	{		
+	if (store.currentmap == _sm->GetCurrentMap() && store.IsLive == true)
+	{
 		float distance = getDistance(store.x, store.y, _player->GetX(), _player->GetY());
 		if (80<distance)
 		{
@@ -1195,11 +1301,11 @@ void cItemManager::StoreUpdate()
 			{
 				IsLR = false;
 			}
-		}			
-		if (store.IsMove==false)
-		{			
-			if (IntersectRect(&temp,&_player->GetRC(),&store.rc))
-			{			
+		}
+		if (store.IsMove == false)
+		{
+			if (IntersectRect(&temp, &_player->GetRC(), &store.rc))
+			{
 				if (_player->GetMoney()>0)
 				{
 					if (distance<75 && IsChange == false)
@@ -1210,7 +1316,7 @@ void cItemManager::StoreUpdate()
 						IsChange = true;
 						_player->SetMoney(_player->GetMoney() - 1);
 					}
-				}				
+				}
 				if (IsLR == true)
 				{
 					if (_player->GetX()<store.x)//왼쪽에서충돌
@@ -1232,9 +1338,9 @@ void cItemManager::StoreUpdate()
 					{
 						_player->SetY(store.y + 65);
 					}
-					
+
 				}
-			}			
+			}
 		}
 		if (store.IsMove == true)
 		{
@@ -1275,11 +1381,11 @@ void cItemManager::StoreUpdate()
 					_player->SetY(store.y + 65);
 				}
 			}
-		}		
-	}				
+		}
+	}
 
 
-	if (store.currentmap == _sm->GetCurrentMap() && store.IsLive == false) 
+	if (store.currentmap == _sm->GetCurrentMap() && store.IsLive == false)
 	{
 		float distance = getDistance(store.x, store.y, _player->GetX(), _player->GetY());
 		if (80<distance)
@@ -1297,7 +1403,7 @@ void cItemManager::StoreUpdate()
 		if (store.IsMove == false)
 		{
 			if (IntersectRect(&temp, &_player->GetRC(), &store.rc))
-			{			
+			{
 				if (IsLR == true)
 				{
 					if (_player->GetX()<store.x)//왼쪽에서충돌
@@ -1321,20 +1427,20 @@ void cItemManager::StoreUpdate()
 					}
 				}
 			}
-		}		
+		}
 	}
 
 }
-	
+
 void cItemManager::StoreRener()
 {
-	if (store.currentmap == _sm->GetCurrentMap()&&store.IsLive==true)
-	{			
-		if (IsChange==false)
+	if (store.currentmap == _sm->GetCurrentMap() && store.IsLive == true)
+	{
+		if (IsChange == false)
 		{
-			IMAGEMANAGER->findImage("슬롯")->setFrameX(0);			
-		}		
-		if (IsChange==true)
+			IMAGEMANAGER->findImage("슬롯")->setFrameX(0);
+		}
+		if (IsChange == true)
 		{
 			if (AnimCount % 6 == 0)
 			{
@@ -1344,13 +1450,13 @@ void cItemManager::StoreRener()
 					IMAGEMANAGER->findImage("슬롯")->setFrameX(1);
 				}
 			}
-		}		
-		
+		}
+
 		//RectangleMake(getMemDC(), store.rc);
 		IMAGEMANAGER->frameRender("슬롯", getMemDC(), store.rc.left, store.rc.top, IMAGEMANAGER->findImage("슬롯")->getFrameX(), IMAGEMANAGER->findImage("슬롯")->getFrameY());
 	}
 
-	if (store.currentmap == _sm->GetCurrentMap() && store.IsLive == false) 
+	if (store.currentmap == _sm->GetCurrentMap() && store.IsLive == false)
 	{
 		IMAGEMANAGER->frameRender("슬롯", getMemDC(), store.rc.left, store.rc.top, IMAGEMANAGER->findImage("슬롯")->getMaxFrameX(), IMAGEMANAGER->findImage("슬롯")->getFrameY());
 	}

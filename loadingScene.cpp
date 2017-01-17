@@ -73,7 +73,10 @@ void loadingScene::loadingImage(void)
 	_loading->loadImage("하트2", "w_heart2.bmp", 35, 30, true, RGB(255, 0, 255));
 	_loading->loadImage("하트", "w_heart.bmp", 35, 30, true, RGB(255, 0, 255));
 	_loading->loadFrameImage("슬롯", "w_slot.bmp", 900, 100, 9, 1, true, RGB(255, 0, 255));
-	
+	_loading->loadImage("돌맹이", "w_rock.bmp", 50, 40, true, RGB(255, 0, 255));
+	_loading->loadImage("상점캐릭터", "w_shop.bmp", 50, 100, true, RGB(255, 0, 255));
+	_loading->loadImage("상점2", "w_shop2.bmp", 40, 40, true, RGB(255, 0, 255));
+	_loading->loadImage("상점3", "w_shop3.bmp", 40, 40, true, RGB(255, 0, 255));
 	
 
 	//백그라운드 이미지

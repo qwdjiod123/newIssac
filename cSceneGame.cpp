@@ -47,10 +47,10 @@ void cSceneGame::update(void)
 
 void cSceneGame::render(void)
 {		
-	_sm->render();
-	_player->render();
+	_sm->render();	
 	_im->render();
 	_enemy->render();
+	_player->render();
 	EFFECTMANAGER->render(getMemDC());
 }
 

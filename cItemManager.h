@@ -1,7 +1,7 @@
 #pragma once
 #include "gameNode.h"
 //아이템마다 애니매이션 카운트와 렉트사이즈 다르게설정함
-
+//여기다수정해야함
 #define 보물상자렉트 50
 #define 보물상자카운트 10
 
@@ -83,6 +83,10 @@ enum EACTIVEITEM // 스페이스바눌러서쓰는템들
 enum EACTIVECARD // 카드는그냥 먹었을때 스탯등등 증가하는거보여주기위해 1개만만들예정
 {
 	카드 = 1000, // 사거리+2, 공격력+2, 이동속도+2, 공격속도+2 
+	돌맹이,
+	상점캐릭터,
+	상점2,
+	상점3,
 };
 
 
@@ -92,7 +96,7 @@ struct tag_Item
 	RECT rc;
 	float x;
 	float y;
-	float gravity=0.0f;
+	float gravity = 0.0f;
 	float angle; // 아이템도 움직임 ㅠㅠ
 	float moveSpeed; // 아이템도 움직임 ㅠㅠ	
 	int state; // 이아이템이 무엇인지 예 : state=폭탄
@@ -126,10 +130,10 @@ struct tag_Store
 	float angle;
 	RECT rc;
 	int currentmap;
-	int nCount=0;
+	int nCount = 0;
 	bool IsMove = false;
-	bool IsLive=true;
-	int AnimX=0;
+	bool IsLive = true;
+	int AnimX = 0;
 };
 
 struct tag_mapRC
@@ -150,30 +154,30 @@ private:
 	RECT temp; // 렉트충돌하는데쓰임
 	tag_mapRC mapRC; //픽셀로 말고 그냥 렉트충돌로할게요 ㅠㅠ
 
-	bool ItemSetOnce[10] = {false,}; // 맵체인지할때 아이템리셋하는거막기위해 맵담당자말고는 중요하지않음
+	bool ItemSetOnce[10] = { false, }; // 맵체인지할때 아이템리셋하는거막기위해 맵담당자말고는 중요하지않음
 	int AnimCount = 0; // 아이템들 프레임렌더 공통 카운트
 	bool IsChange; // 아이템교체하는 로직때문에 야매로씀	
-	bool IsTime=false; // 모래시계아이템전용으로 쓰는 변수
+	bool IsTime = false; // 모래시계아이템전용으로 쓰는 변수
 	bool IsPlayerDamaged;
 	//테스트//
-	bool IsLR=true; //렉트충돌 좌우 true일때 좌우만충돌준비! false일떄 상하만충돌준비!
-	float distanceX=0.0f; // 상점 렉트충돌할때 씀	
-	//==================================================================
-	//		## 아이템관리 백터 ##
-	//==================================================================
+	bool IsLR = true; //렉트충돌 좌우 true일때 좌우만충돌준비! false일떄 상하만충돌준비!
+	float distanceX = 0.0f; // 상점 렉트충돌할때 씀	
+							//==================================================================
+							//		## 아이템관리 백터 ##
+							//==================================================================
 	vector<tag_Item> vItem;	 // 맵에 기본적으로 셋팅되있는 아이템들
 	vector<tag_Item> vNewItem; // 무언가 유동적으로 생기는아이템들! 상점에서 템사면 생성되는아이템들 혹은 플레이거 폭탄사용할떄 여기추가함
 
-	//==================================================================
-	//		## 추가적인 아이템들 ##
-	//==================================================================
+							   //==================================================================
+							   //		## 추가적인 아이템들 ##
+							   //==================================================================
 
 	tag_missile missileBomb; // 박사의구렁텅이아이템을 쓰고난후 미사일 구조체
 	tag_Store store; // 돈내고 랜덤으로 탬나오는 기계
 
 public:
 
-	
+
 	void SetIM(cSceneManager* ssm) { _sm = ssm; }
 	void SetPlayer(cPlayer* pplayer) { _player = pplayer; }
 	void SetEnemy(enemyManager* eem) { _enemy = eem; }
