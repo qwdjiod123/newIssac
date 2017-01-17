@@ -19,6 +19,7 @@ enum PlayerAnimation
 	CARD,
 	ETC,
 	DAMAGE,
+	DEAD,
 };
 
 class cPlayer : public gameNode
@@ -66,7 +67,13 @@ private:
 	int wfireY;
 	bool sSlide;
 	int sfireY;
-
+	//
+	int deadCount;  //죽을때 카운트 
+	int deadFrame;
+	int deadAlpha;
+	bool monsterShot; 
+	bool minionShot;
+	bool playerShot; 
 	vector<int> vInventory;
 
 
@@ -129,6 +136,9 @@ public:
 
 	int GetDamage() { return damage; }
 	void SetDamage(int _damage) { damage = _damage; }
+
+	bool GetplayrShot() { return playerShot; }
+	void SetplayerShot(bool _playerShot) { playerShot = _playerShot; }
 
 	void SetAngle(float _angle) { angle = _angle; }
 

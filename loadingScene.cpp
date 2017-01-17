@@ -124,6 +124,11 @@ void loadingScene::loadingImage(void)
 	//날개
 	_loading->loadFrameImage("아이작날개", "아이작날개프레임.bmp", 515, 41, 5, 1, true, RGB(255, 0, 255));
 	_loading->loadFrameImage("유황날개", "유황날개프레임.bmp", 515, 41, 5, 1, true, RGB(255, 0, 255));
+	//죽을때 모션 추가 
+	_loading->loadFrameImage("아이작DEAD", "아이작DEAD.bmp", PLAYERHEADSIZEX * 3, PLAYERSIZEY + PLAYERHEADSIZEY, 3, 1, true, RGB(255, 0, 255));
+	_loading->loadImage("아이작DEAD2", "아이작DEAD.bmp", PLAYERHEADSIZEX * 3, PLAYERSIZEY + PLAYERHEADSIZEY, true, RGB(255, 0, 255));
+	_loading->loadFrameImage("유황DEAD", "유황DEAD.bmp", PLAYERHEADSIZEX * 3, PLAYERSIZEY + PLAYERHEADSIZEY, 3, 1, true, RGB(255, 0, 255));
+	_loading->loadImage("유황DEAD2", "유황DEAD.bmp", PLAYERHEADSIZEX * 3, PLAYERSIZEY + PLAYERHEADSIZEY, true, RGB(255, 0, 255));
 	//몬스터에 대한 이미지
 	_loading->loadFrameImage("wormH", "wormH.bmp", 504, 40, 12, 2, true, RGB(255, 0, 255));
 	_loading->loadFrameImage("wormD", "wormD.bmp", 600, 28, 24, 1, true, RGB(255, 0, 255));

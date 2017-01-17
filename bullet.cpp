@@ -13,7 +13,6 @@ HRESULT bullet::init(char * imageName, int bulletMax)
 }
 
 
-
 void bullet::release(void)
 {
 	//	EFFECTMANAGER->release();
@@ -77,10 +76,28 @@ void bullet::move(void)
 		//ÃÑ¾ËÀÌ »ç°Å¸®º¸´Ù Ä¿Á³À»¶§
 		float distance = getDistance(_viBullet->fireX, _viBullet->fireY,
 			_viBullet->x, _viBullet->y);
+		if (_viBullet->_range - 50 < distance &&_viBullet->_range > distance)
+		{
+			if (_viBullet->angle == (PI * 2))//¿À¸¥ÂÊ½ò¶§
+			{
+				_viBullet->y++;
+			}
+			if (_viBullet->angle == (PI))//¿ÞÂÊ½ò¶§
+			{
+				_viBullet->y++;
+			}
+			if (_viBullet->angle == (PI / 2))//À§·Î½ò¶§
+			{
+				_viBullet->x++;
+			}
+			if (_viBullet->angle == -(PI / 2))//¾Æ·¡½ò¶§
+			{
+				_viBullet->x++;
+			}
 
+		}
 		if (_viBullet->_range < distance)
 		{
-
 			EFFECTMANAGER->addEffect("Å«ÃÑ¾ËÈ¿°ú", _viBullet->x, _viBullet->y);
 			_viBullet = _vBullet.erase(_viBullet);
 		}
