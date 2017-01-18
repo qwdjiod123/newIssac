@@ -1140,17 +1140,23 @@ void cItemManager::Collision()
 			}
 		}
 	}
+
+
+	
 	//벽돌과충돌처리
 	for (int i = 0; i < vItem.size(); i++)
 	{
 		if (_player->GetIsFly() == false)
 		{
-			if (vItem[i].state == 벽돌)
+			if (_sm->GetCurrentMap() == vItem[i].currentmap)
 			{
-				if (_player->GetRC().bottom>vItem[i].rc.top)
+				if (vItem[i].state == 벽돌)
 				{
-					_player->SetY(vItem[i].y - 40);
-					break;
+					if (_player->GetRC().bottom > vItem[i].rc.top)
+					{
+						_player->SetY(vItem[i].y - 40);
+						break;
+					}
 				}
 			}
 		}
