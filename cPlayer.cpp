@@ -70,6 +70,11 @@ HRESULT cPlayer::init(void)
 	deadAlpha = 255;
 	playerShot = false; 
 	hitCount = 0;
+	//유황추가
+	//
+	charge = 0;
+	isCharge = false;
+	
 	return S_OK;
 }
 
@@ -207,26 +212,57 @@ void cPlayer::render(void)
 			switch (faceState)
 			{
 			case pLEFT:
-				IMAGEMANAGER->render("유황왼쪽얼굴", getMemDC(), rcHead.left - 5, rcHead.top, 0, 0, PLAYERHEADSIZEX + 10, PLAYERHEADSIZEY);
+				if (isCharge == false)
+					IMAGEMANAGER->render("유황왼쪽얼굴", getMemDC(), rcHead.left - 5, rcHead.top, 0, 0, PLAYERHEADSIZEX + 10, PLAYERHEADSIZEY);
+				if (isCharge == true)
+				{
+					if (charge % 3 == 0 || charge % 3 == 1)
+						IMAGEMANAGER->render("유황왼쪽얼굴", getMemDC(), rcHead.left - 5, rcHead.top, 0, 0, PLAYERHEADSIZEX + 10, PLAYERHEADSIZEY);
+					if (charge % 3 == 2)
+						IMAGEMANAGER->render("유황LEFTRED", getMemDC(), rcHead.left - 5, rcHead.top, 0, 0, PLAYERHEADSIZEX + 10, PLAYERHEADSIZEY);
+				}
 				_유황->render();
 				//cout << "left" << endl;
 				break;
 			case pRIGHT:
-				IMAGEMANAGER->render("유황오른쪽얼굴", getMemDC(), rcHead.left - 5, rcHead.top, 0, 0, PLAYERHEADSIZEX + 10, PLAYERHEADSIZEY);
+				if (isCharge == false)
+					IMAGEMANAGER->render("유황오른쪽얼굴", getMemDC(), rcHead.left - 5, rcHead.top, 0, 0, PLAYERHEADSIZEX + 10, PLAYERHEADSIZEY);
+				if (isCharge == true)
+				{
+					if (charge % 3 == 0 || charge % 3 == 1)
+						IMAGEMANAGER->render("유황오른쪽얼굴", getMemDC(), rcHead.left - 5, rcHead.top, 0, 0, PLAYERHEADSIZEX + 10, PLAYERHEADSIZEY);
+					if (charge % 3 == 2)
+						IMAGEMANAGER->render("유황RIGHTRED", getMemDC(), rcHead.left - 5, rcHead.top, 0, 0, PLAYERHEADSIZEX + 10, PLAYERHEADSIZEY);
+				}
 				_유황->render();
 				break;
 			case pIDLE:
-				IMAGEMANAGER->render("유황IDLEFIRE", getMemDC(), rcHead.left - 10, rcHead.top, 0, 0, PLAYERHEADSIZEX + 20, PLAYERHEADSIZEY);
+				if (isCharge == false)
+					IMAGEMANAGER->render("유황IDLEFIRE", getMemDC(), rcHead.left - 10, rcHead.top, 0, 0, PLAYERHEADSIZEX + 20, PLAYERHEADSIZEY);
+				if (isCharge == true)
+				{
+					if (charge % 3 == 0 || charge % 3 == 1)
+						IMAGEMANAGER->render("유황IDLEFIRE", getMemDC(), rcHead.left - 10, rcHead.top, 0, 0, PLAYERHEADSIZEX + 20, PLAYERHEADSIZEY);
+					if (charge % 3 == 2)
+						IMAGEMANAGER->render("유황IDLERED", getMemDC(), rcHead.left - 10, rcHead.top, 0, 0, PLAYERHEADSIZEX + 20, PLAYERHEADSIZEY);
+				}
 				_유황->render();
 				break;
 			case pUP:
 				_유황->render();
-				IMAGEMANAGER->render("유황뒷통수", getMemDC(), rcHead.left - 10, rcHead.top, 0, 0, PLAYERHEADSIZEX + 20, PLAYERHEADSIZEY);
+				if (isCharge == false)
+					IMAGEMANAGER->render("유황뒷통수", getMemDC(), rcHead.left - 10, rcHead.top, 0, 0, PLAYERHEADSIZEX + 20, PLAYERHEADSIZEY);
+				if (isCharge == true)
+				{
+					if (charge % 3 == 0 || charge % 3 == 1)
+						IMAGEMANAGER->render("유황뒷통수", getMemDC(), rcHead.left - 10, rcHead.top, 0, 0, PLAYERHEADSIZEX + 20, PLAYERHEADSIZEY);
+					if (charge % 3 == 2)
+						IMAGEMANAGER->render("유황IDLERED", getMemDC(), rcHead.left - 10, rcHead.top, 0, 0, PLAYERHEADSIZEX + 20, PLAYERHEADSIZEY);
+				}
 				break;
 			default:
 				break;
 			}
-
 		}
 	}
 
@@ -609,37 +645,82 @@ void cPlayer::bulletFire(void)
 	}
 	else if (arrow == 유황)
 
-	{
-		bulletCount++;
-		if (bulletCount % 20 == 0)
 		{
-			////유황일때 기본 range 200,damage 1, 속도 30 
+			bulletCount++;
+			if (bulletCount % 20 == 0)
+			{
+				if (KEYMANAGER->isOnceKeyUp(VK_UP))
+				{
+					if (charge >= 50)
+					{
+						_유황->fire(x, y - PLAYERSIZEY / 2 - PLAYERHEADSIZEY / 2 + 10, 3, 56 * 7, 10, 3);
+						fire = true;
+					}
+					faceState = pUP;
+					charge = 0;
+					isCharge = false;
+				}
+				if (KEYMANAGER->isOnceKeyUp(VK_DOWN))
+				{
+					if (charge >= 50)
+					{
+						_유황->fire(x, y - PLAYERSIZEY / 2 - PLAYERHEADSIZEY / 2 + 25, 4, 56 * 7, 10, 3);
+						fire = true;
+					}
+					faceState = pIDLE;
+					charge = 0;
+					isCharge = false;
+				}
+				if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
+				{
+					if (charge >= 50)
+					{
+						_유황->fire(x - 20, y - PLAYERSIZEY / 2 - PLAYERHEADSIZEY / 2 + 20, 2, 56 * 7, 10, 3);
+						fire = true;
+					}
+					faceState = pLEFT;
+					charge = 0;
+					isCharge = false;
+				}
+				if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
+				{
+					if (charge >= 50)
+					{
+						_유황->fire(x + 20, y - PLAYERSIZEY / 2 - PLAYERHEADSIZEY / 2 + 20, 1, 56 * 7, 10, 3);
+						fire = true;
+					}
+					charge = 0;
+					isCharge = false;
+					faceState = pRIGHT;
+				}
+				////유황일때 기본 range 200,damage 1, 속도 30 
+
+			}
 			if (KEYMANAGER->isStayKeyDown(VK_UP))
 			{
-				_유황->fire(x, y - PLAYERSIZEY / 2 - PLAYERHEADSIZEY / 2 + 10, 3, 56 * 7, 10, 3);
-				fire = true;
+				charge++;
+				isCharge = true;
 				faceState = pUP;
 			}
 			if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 			{
-				_유황->fire(x, y - PLAYERSIZEY / 2 - PLAYERHEADSIZEY / 2 + 25, 4, 56 * 7, 10, 3);
+				charge++;
+				isCharge = true;
 				faceState = pIDLE;
-				fire = true;
 			}
 			if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 			{
-				_유황->fire(x - 12, y - PLAYERSIZEY / 2 - PLAYERHEADSIZEY / 2 + 20, 2, 56 * 7, 10, 3);
+				charge++;
+				isCharge = true;
 				faceState = pLEFT;
-				fire = true;
 			}
 			if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 			{
-				_유황->fire(x + 20, y - PLAYERSIZEY / 2 - PLAYERHEADSIZEY / 2 + 20, 1, 56 * 7, 10, 3);
+				charge++;
+				isCharge = true;
 				faceState = pRIGHT;
-				fire = true;
 			}
 		}
-	}
 	//알약을 먹으면 set(arrow=알약)으로 하고 // damage도 3으로 바꾸기. 
 
 }

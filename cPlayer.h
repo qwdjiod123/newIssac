@@ -76,7 +76,9 @@ private:
 	bool playerShot; 
 	vector<int> vInventory;
 	int hitCount;
-
+	//
+	int charge;
+	bool isCharge;
 
 	//==================================================================
 	//		## 스탯 ## 추가로들어갈거 수정필수!
